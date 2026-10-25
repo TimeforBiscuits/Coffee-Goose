@@ -3,6 +3,7 @@
   'use strict';
 
   const M = window.CGMatch;
+  const G = window.CGGuide;
   const VERSION = window.CG_VERSION || 'dev';
   const STORE_KEY = 'coffeeGoose.v1';
 
@@ -55,7 +56,7 @@
     let s = null;
     try { s = JSON.parse(localStorage.getItem(STORE_KEY)); } catch (e) { /* ignore */ }
     s = s && typeof s === 'object' ? s : {};
-    return Object.assign({ tab: 'brew', roaster: null, bean: null, method: null, picks: [], hideSold: false, tips: true, tipSeen: '', tipIndex: 0 }, s);
+    return Object.assign({ tab: 'brew', roaster: null, bean: null, method: null, picks: [], hideSold: false, tips: true, tipSeen: '', tipIndex: 0, sound: true }, s);
   }
   function saveState() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* private mode etc. */ }
@@ -92,7 +93,7 @@
 
   // Escapes, then allows **bold** and bare links. Catalog text is data, never HTML.
   function richText(s) {
-    return esc(s)
+    return esc(G.tempsToF(s))
       .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
       .replace(/https?:\/\/[^\s<]+[^\s<.,;:)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener">${u.replace(/^https?:\/\//, '')}</a>`);
   }
@@ -309,6 +310,7 @@
     const g = r.grind_x_ultra;
     const src = M.SOURCE_TYPES[r.source_type] || { label: r.source_type, blurb: '', cls: 'src-goose' };
     const ratio = M.ratio(r);
+    const plan = G.guide(r);
     const el = document.createElement('div');
     el.className = 'recipe sunken';
 
@@ -353,28 +355,37 @@
         ${r.dose_g != null ? stat('Coffee', `${r.dose_g}<small> g</small>`) : missing('Coffee', 'Roaster left it out')}
         ${stat('Water', `${r.water_g}<small> g</small>`)}
         ${ratio ? stat('Ratio', ratio) : stat('Ratio', '—', 'needs a dose')}
-        ${r.temperature_c != null ? stat('Water temp', `${r.temperature_c}<small>°C</small>`) : missing('Water temp', 'Roaster left it out')}
+        ${r.temperature_c != null ? stat('Water temp', `${G.toF(r.temperature_c)}<small>°F</small>`, `${r.temperature_c}°C`) : missing('Water temp', 'Roaster left it out')}
         ${timeStat(r.target_time)}
         ${stat('X-Ultra', esc(g.start_setting), `${g.start_clicks} clicks`, 'grind')}
       </div>
 
       <div class="recipe-cols">
         <div>
-          <h3><span class="grow">Steps</span>
+          <h3>Before you start</h3>
+          <ul class="prep-list">${plan.prep.map((p) => `<li>${richText(p)}</li>`).join('')}</ul>
+
+          <h3><span class="grow">Brew</span>
             <span class="timer">
               <span class="timer-face" aria-live="off">0:00</span>
               <button class="btn" data-timer="go">▶ Start</button>
               <button class="btn" data-timer="reset" aria-label="Reset timer">↺</button>
+              <button class="btn" data-timer="sound" aria-label="Chime at each step" aria-pressed="${state.sound !== false}">${state.sound !== false ? '🔔' : '🔕'}</button>
             </span>
           </h3>
-          <ol class="steps-list">
-            ${r.steps.map((s) => {
-              const t = M.stepTime(s);
-              const text = t != null ? esc(s).replace(/^((?:by\s+)?\d{1,2}:\d{2})/i, '<span class="t">$1</span>') : richText(s);
-              return `<li data-t="${t == null ? '' : t}"><span>${text}</span></li>`;
-            }).join('')}
+          <div class="next-up" data-next aria-live="polite">Tap ▶ Start as you begin the first pour.</div>
+          <ol class="steps-list guided">
+            ${plan.steps.map((st) => `<li data-t="${st.t}">
+              <span class="t">${st.time}</span>
+              <span class="st-body"><b class="st-main">${richText(st.text)}</b>${st.sub ? `<span class="st-sub">${richText(st.sub)}</span>` : ''}</span>
+            </li>`).join('')}
           </ol>
-          <p class="target"><b>Target:</b> ${esc(r.target_time)}</p>
+          ${plan.notes.map((n) => `<p class="small guess">🪿 ${esc(n)}</p>`).join('')}
+          <details class="orig">
+            <summary>Roaster’s original wording</summary>
+            <ol>${r.steps.map((s) => `<li>${richText(s)}</li>`).join('')}</ol>
+            <p class="small"><b>Target:</b> ${esc(r.target_time)}</p>
+          </details>
 
           ${r.notes ? `<h3>Notes</h3><div class="notes"><p>${richText(r.notes)}</p></div>` : ''}
           ${r.source_url ? `<p class="small">Source: <a href="${esc(r.source_url)}" target="_blank" rel="noopener">${esc(r.source_url.replace(/^https?:\/\//, ''))}</a></p>` : ''}
@@ -395,7 +406,7 @@
       </div>`;
 
     $$('.method-tabs .btn', el).forEach((b) => b.addEventListener('click', () => { if (b.dataset.m !== method) onMethod(b.dataset.m); }));
-    wireTimer(el);
+    wireTimer(el, plan);
     renderLogSection($('[data-log]', el), c, r);
     return el;
   }
@@ -407,22 +418,56 @@
     activeTimer = null;
   }
 
-  function wireTimer(el) {
+  // A short two-note chime. iOS only allows audio after a tap, so it's set up on Start.
+  let audio = null;
+  function chime(final) {
+    if (!audio || state.sound === false) return;
+    const notes = final ? [784, 988, 1319] : [880, 1175];
+    notes.forEach((hz, i) => {
+      const o = audio.createOscillator(), g = audio.createGain();
+      const at = audio.currentTime + i * 0.14;
+      o.type = 'square';
+      o.frequency.value = hz;
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.exponentialRampToValueAtTime(0.12, at + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, at + 0.13);
+      o.connect(g).connect(audio.destination);
+      o.start(at);
+      o.stop(at + 0.15);
+    });
+  }
+
+  function wireTimer(el, plan) {
     const face = $('.timer-face', el);
     const goBtn = $('[data-timer="go"]', el);
+    const next = $('[data-next]', el);
     const steps = $$('.steps-list li', el);
-    let started = 0, elapsed = 0, tick = null, lock = null;
+    let started = 0, elapsed = 0, tick = null, lock = null, shown = -1;
 
     const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    const label = (i) => $('.st-main', steps[i]).textContent;
     function paint() {
       const s = elapsed / 1000;
+      const running = !!(tick || elapsed);
       face.textContent = fmt(s);
       let now = -1;
-      steps.forEach((li, i) => { if (li.dataset.t !== '' && +li.dataset.t <= s && (tick || elapsed)) now = i; });
+      steps.forEach((li, i) => { if (+li.dataset.t <= s && running) now = i; });
       steps.forEach((li, i) => {
         li.classList.toggle('now', i === now);
-        li.classList.toggle('done', now >= 0 && i < now && li.dataset.t !== '');
+        li.classList.toggle('done', i < now);
       });
+      if (!running) next.textContent = 'Tap ▶ Start as you begin the first pour.';
+      else if (now < steps.length - 1) {
+        const i = now + 1;
+        next.innerHTML = `Next: <b>${esc(label(i))}</b> in <b class="count">${fmt(Math.max(0, +steps[i].dataset.t - s + 0.999))}</b>`;
+      } else next.innerHTML = '<b>Done!</b> Enjoy your coffee. 🪿';
+      if (now !== shown) {
+        if (now >= 0 && tick) {
+          chime(now === steps.length - 1);
+          steps[now].scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+        shown = now;
+      }
     }
     function pause() {
       clearInterval(tick);
@@ -433,6 +478,10 @@
     goBtn.addEventListener('click', () => {
       if (tick) { pause(); return; }
       stopTimer(); // only one timer at a time
+      try {
+        audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+        audio.resume();
+      } catch (e) { audio = null; }
       started = Date.now() - elapsed;
       tick = setInterval(() => { elapsed = Date.now() - started; paint(); }, 250);
       goBtn.textContent = '⏸ Pause';
@@ -440,7 +489,13 @@
       paint();
       if (navigator.wakeLock) navigator.wakeLock.request('screen').then((l) => { lock = l; }).catch(() => {});
     });
-    $('[data-timer="reset"]', el).addEventListener('click', () => { pause(); elapsed = 0; goBtn.textContent = '▶ Start'; paint(); });
+    $('[data-timer="reset"]', el).addEventListener('click', () => { pause(); elapsed = 0; shown = -1; goBtn.textContent = '▶ Start'; paint(); });
+    $('[data-timer="sound"]', el).addEventListener('click', (e) => {
+      state.sound = state.sound === false;
+      saveState();
+      e.currentTarget.textContent = state.sound ? '🔔' : '🔕';
+      e.currentTarget.setAttribute('aria-pressed', String(state.sound));
+    });
   }
 
   /* ---------- brew log (per recipe) ---------- */
@@ -460,7 +515,7 @@
     const pips = window.CGLog.SCALES.filter((k) => e[k]).map((k) => `<span>${SCALE_LABELS[k]} <i>${'■'.repeat(e[k])}${'□'.repeat(5 - e[k])}</i></span>`).join('');
     const kv = [
       ['Grind', e.grinder_setting], ['Coffee', e.dose_g != null ? e.dose_g + ' g' : ''], ['Water', e.water_g != null ? e.water_g + ' g' : ''],
-      ['Temp', e.temperature_c != null ? e.temperature_c + '°C' : ''], ['Roasted', e.bean_roast_date ? fmtDate(e.bean_roast_date) : ''],
+      ['Temp', e.temperature_c != null ? G.toF(e.temperature_c) + '°F' : ''], ['Roasted', e.bean_roast_date ? fmtDate(e.bean_roast_date) : ''],
     ].filter(([, v]) => v).map(([k, v]) => `${k} <b>${esc(v)}</b>`).join(' · ');
     return `
       <div class="entry-body">
@@ -508,7 +563,7 @@
             <div class="field-row">
               <label class="field">Coffee g<input class="win-input" name="dose_g" inputmode="decimal" value="${r.dose_g ?? ''}"></label>
               <label class="field">Water g<input class="win-input" name="water_g" inputmode="decimal" value="${r.water_g ?? ''}"></label>
-              <label class="field">Temp °C<input class="win-input" name="temperature_c" inputmode="decimal" value="${r.temperature_c ?? ''}"></label>
+              <label class="field">Temp °F<input class="win-input" name="temperature_f" inputmode="decimal" value="${r.temperature_c != null ? G.toF(r.temperature_c) : ''}"></label>
             </div>
             <label class="field">Bag roast date<input class="win-input" type="date" name="bean_roast_date"></label>
           </div>
@@ -536,6 +591,10 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const fd = Object.fromEntries(new FormData(form));
+      // the log stores Celsius, like the catalog
+      const f = parseFloat(fd.temperature_f);
+      delete fd.temperature_f;
+      if (isFinite(f)) fd.temperature_c = Math.round(((f - 32) * 5) / 9 * 10) / 10;
       if (!draft.rating && !fd.notes.trim() && !fd.flavours_observed.trim() && !fd.change_next_time.trim() &&
           !window.CGLog.SCALES.some((k) => draft[k])) {
         toast('Add a rating or a note first ✍️');
@@ -927,7 +986,7 @@
     setInterval(tickClock, 15000);
 
     const bootEl = $('#boot'), bar = $('#boot-bar'), msg = $('#boot-msg');
-    const steps = ['Starting Coffee Goose…', 'Grinding beans…', 'Heating kettle to 94°C…', 'Rinsing paper filters…', 'Zeroing the X-Ultra…', 'Letting it bloom…'];
+    const steps = ['Starting Coffee Goose…', 'Grinding beans…', 'Heating kettle to 201°F…', 'Rinsing paper filters…', 'Zeroing the X-Ultra…', 'Letting it bloom…'];
     let i = 0;
     const timer = setInterval(() => {
       i = Math.min(i + 1, steps.length - 1);

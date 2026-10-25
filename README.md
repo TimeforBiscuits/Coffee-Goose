@@ -9,7 +9,15 @@ A Windows 95–flavoured brew guide, from the same family as Cooked Goose. Pick 
   - Each coffee has a card with the roaster's tasting notes, a short bio, and origin, process and producer details.
 - **Recipes.**
   - Big numbers for coffee, water, ratio, temperature, time and the 1Zpresso X-Ultra grind setting.
-  - Numbered steps with a brew timer. It highlights the timed step you're on and keeps the screen awake while it runs.
+  - **Guided pours.** Every recipe is broken into one timed step per pour: *0:00 Bloom: pour to 40 g*, *0:30 Pour to 120 g*, and so on, ending with *Drawdown done*. Press ▶ Start as you begin the first pour.
+    - The timer highlights the current step and scrolls to it. A bar counts down to the next pour ("Next: Pour to 180 g in 0:25").
+    - It chimes at each step (🔔/🔕 to mute) and keeps the screen awake while it runs.
+  - Where the roaster lists pour sizes but no times, or gives no schedule at all, Coffee Goose fills in the gaps and says so on the recipe.
+    - The bloom gets 30 seconds, unless the roaster gives a different wait.
+    - The last pour lands about a minute before drawdown.
+    - When the roaster gives a time window ("2:30–3:30"), drawdown aims for its middle.
+  - The roaster's original wording is kept underneath, under *Roaster's original wording*.
+  - Temperatures are shown in °F, with the roaster's °C underneath.
   - Every recipe carries a badge saying where it came from: *Roaster recipe*, *Roaster house guide*, *House guide · gaps*, or *Goose suggestion* (editorial).
   - Numbers a roaster didn't publish show as **Not published**, never guessed. The Barn's AeroPress dose is one example.
 - **Brew Log.** Every recipe has a log. Each entry records:
@@ -33,6 +41,12 @@ A Windows 95–flavoured brew guide, from the same family as Cooked Goose. Pick 
 The log is saved in the browser's local storage on each device. It's kept apart from the coffee catalog, keyed by coffee ID and brew method, so updating the catalog never touches it.
 
 Clearing Safari's website data deletes the log, and so can removing the home-screen app. Use **Start → Back Up Brew Log** now and then. On iPhone it opens the share sheet, so you can save the file to Files. **Restore** merges a backup in without duplicating entries.
+
+## Guided pour plans
+
+`js/guide.js` builds each recipe's timed steps from the catalog at runtime. The catalog's own `steps` are never changed. It reads the roasters' phrasings ("Five pours of …", "three additional pours of 75 g each", "Pour 75 g, then 75 g, then 50 g", already-timed schedules). It also covers the Switch and AeroPress templates. `node tests/check.js` builds a plan for all 159 recipes and checks each one starts at 0:00, keeps adding water, and finishes at the recipe's full water weight. If a new catalog uses wording it doesn't recognise, the tests fail rather than showing a broken plan.
+
+The brew log still stores temperatures in °C, like the catalog, and converts to °F for display.
 
 ## The catalog
 

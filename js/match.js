@@ -194,13 +194,7 @@
     return '1:' + (Math.round(x * 10) / 10).toString().replace(/\.0$/, '');
   }
 
-  // Seconds at which a step starts, if it begins with a timestamp ("0:30 spiral pour…", "By 0:20 stir…").
-  function stepTime(step) {
-    const m = /^(?:by\s+)?(\d{1,2}):(\d{2})\b/i.exec(step.trim());
-    return m ? +m[1] * 60 + +m[2] : null;
-  }
-
-  const api = { METHODS, SOURCE_TYPES, FLAGS, GROUPS, profile, rank, clicksToSetting, settingToClicks, ratio, stepTime };
+  const api = { METHODS, SOURCE_TYPES, FLAGS, GROUPS, profile, rank, clicksToSetting, settingToClicks, ratio };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.CGMatch = api;
 })(typeof window !== 'undefined' ? window : globalThis);
