@@ -30,7 +30,7 @@
         rating: Math.max(0, Math.min(5, +e.rating || 0)),
       };
       for (const k of SCALES) if (+e[k] >= 1 && +e[k] <= 5) out[k] = +e[k];
-      for (const k of ['bean_roast_date', 'grinder_setting', 'flavours_observed', 'change_next_time', 'notes']) {
+      for (const k of ['bean_roast_date', 'grinder_setting', 'brew_time', 'flavours_observed', 'change_next_time', 'notes']) {
         if (e[k] != null && String(e[k]).trim()) out[k] = String(e[k]).trim();
       }
       for (const k of ['dose_g', 'water_g', 'temperature_c']) if (e[k] !== '' && e[k] != null && isFinite(+e[k])) out[k] = +e[k];

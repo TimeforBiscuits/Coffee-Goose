@@ -4,8 +4,13 @@ const path = require('path');
 const M = require('../js/match.js');
 const L = require('../js/log.js');
 const G = require('../js/guide.js');
+const I = require('../js/insights.js');
 
-const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'catalog.json'), 'utf8'));
+// load exactly as the app does: every file in data/index.json, merged by coffee id
+const dataDir = path.join(__dirname, '..', 'data');
+const read = (f) => JSON.parse(fs.readFileSync(path.join(dataDir, f), 'utf8'));
+const files = read('index.json').files;
+const catalog = M.mergeCatalogs(files.map(read));
 const coffees = catalog.coffees;
 
 let failures = 0;
@@ -15,7 +20,10 @@ function check(cond, msg) {
 
 // catalog shape (see data/SCHEMA.md)
 check(catalog.schema_version === '2.0', 'schema 2.0');
-check(coffees.length === 53, `expected 53 coffees, got ${coffees.length}`);
+check(coffees.length === 64, `expected 64 coffees (53 + 11 canephora), got ${coffees.length}`);
+check(coffees.flatMap((c) => c.recipes).length === 192, 'expected 192 recipes');
+check(catalog.roasters.length === 8 && catalog.roasters.filter((r) => r === 'Mókuska').length === 1, `8 roasters, Mókuska once: ${catalog.roasters}`);
+check(coffees.filter((c) => /mr\.? toi/i.test(c.name)).length === 3, 'the three Mr Toi coffees stay separate');
 check(new Set(coffees.map((c) => c.id)).size === coffees.length, 'coffee ids are unique');
 for (const c of coffees) {
   check(catalog.roasters.includes(c.roaster), `${c.id}: known roaster`);
@@ -58,16 +66,56 @@ check(plan('the-barn--jairo-arcila', 'v60_pour_over').steps.map((s) => s.time).j
 check(plan('mokuska--good-night', 'v60_pour_over').steps.filter((s) => s.to).map((s) => s.to).join(',') === '50,125,200,250', '"then … then" pours');
 check(G.targetSeconds('2:30–3:30') === 180 && G.targetSeconds('~2:15') === 135 && G.targetSeconds('not specified') === null, 'target times');
 
+// the roaster's published pours always survive into the plan ("to 115 g total", "(120 g total)")
+for (const c of coffees) for (const r of c.recipes) {
+  if (r.method !== 'v60_pour_over') continue;
+  const totals = [...r.steps.join(' ').matchAll(/(\d+)\s*g\s+total/gi)].map((m) => +m[1]);
+  const pours = G.guide(r).steps.filter((s) => s.to).map((s) => s.to);
+  check(totals.every((t) => pours.includes(t)), `${c.id}: published totals ${totals} kept in ${pours}`);
+}
+check(plan('quijote--eliane-livio', 'v60_pour_over').steps.map((s) => `${s.time} ${s.to || ''}`).join(',') ===
+  '0:00 45,0:40 115,1:15 190,1:50 270,3:00 ', 'addendum timed pours kept, 45 g bloom');
+
+// best practice from the brew log
+check(I.sentiment('not bitter at all').score > 0 && I.sentiment('sour and thin').score < 0, 'notes read as good or bad');
+check(I.sentiment('best cup I have had').standout, 'superlatives stand out');
+check(I.bestPractice([{ method: 'aeropress' }]).scored === 0, 'no ratings or notes: nothing to conclude');
+{
+  // the README example: 9 V60, 5 Switch, 2 AeroPress, and the AeroPress was the best cup
+  const e = [];
+  let d = 1;
+  const add = (method, rating, notes, grind, extra = {}) =>
+    e.push(Object.assign({ method, rating, notes, grinder_setting: grind, brewed_on: `2026-10-${String(d++).padStart(2, '0')}` }, extra));
+  [3, 4, 3, 4, 3, 4, 3, 3, 4].forEach((r, i) => add('v60_pour_over', r, ['Fine', 'Nice and sweet', 'A bit sour'][i % 3], i < 5 ? '2.3.1' : '2.2.7'));
+  [3, 3, 4, 2, 3].forEach((r) => add('v60_switch_immersion', r, 'okay', '2.4.0'));
+  add('aeropress', 5, 'Incredible flavor, best cup I’ve had out of this bean', '1.4.5', { dose_g: 15, water_g: 225, brew_time: '2:10' });
+  add('aeropress', 4, 'Really good again', '1.4.5', { dose_g: 15, water_g: 225 });
+  const b = I.bestPractice(e);
+  check(b.method === 'aeropress' && b.settings.grind === '1.4.5' && b.settings.dose_g === 15 && b.settings.brew_time === '2:10', `AeroPress wins: ${JSON.stringify(b.settings)}`);
+  check(/best cup/.test(b.quote) && b.confidence === 'high', 'quotes the best note');
+  // ...but one lucky 5-star doesn't beat a long run of 5-stars
+  const steady = [5, 5, 5, 5, 5, 5].map((r) => ({ method: 'v60_pour_over', rating: r, grinder_setting: '2.3.0' }));
+  check(I.bestPractice(steady.concat([{ method: 'aeropress', rating: 5 }, { method: 'aeropress', rating: 2 }])).method === 'v60_pour_over', 'consistency beats one lucky brew');
+  // grind within a brewer
+  const grinds = [['2.3.0', 3], ['2.3.0', 3], ['2.2.6', 5], ['2.2.6', 4]].map(([g, r]) => ({ method: 'v60_pour_over', rating: r, grinder_setting: g }));
+  check(I.bestPractice(grinds).settings.grind === '2.2.6', 'best grind picked');
+}
+
 // Fahrenheit
 check(G.toF(92) === 198 && G.toF(100) === 212, 'C to F');
 check(G.tempsToF('bloom at 75–80°C, brew at 94°C') === 'bloom at 167–176°F, brew at 201°F', 'temperatures in text');
 
 // matcher
 const top = (picks, n = 4) => M.rank(coffees, picks).slice(0, n).map((x) => x.coffee);
-check(top(['robusta'], 1)[0].varietal.includes('canephora'), 'robusta finds the canephora');
+check(top(['robusta']).every((c) => /canephora|conilon|robusta/i.test(c.varietal + (c.species || ''))), 'robusta finds canephoras');
+check(M.rank(coffees, ['robusta']).filter((x) => x.score === 100).length === 12, 'all 12 canephoras score 100% for robusta');
 check(top(['Ethiopia', 'natural']).every((c) => c.country === 'Ethiopia' && /natural/i.test(c.process)), 'Ethiopian naturals');
 check(top(['Colombia', 'Kenya']).every((c) => ['Colombia', 'Kenya'].includes(c.country)), 'origins are either/or');
-check(top(['dark']).every((c) => /medium/i.test(c.roast)), 'dark leans to the most developed roasts');
+check(top(['dark']).every((c) => M.roastLevel(c.roast) >= 0.9), 'dark finds the dark roasts');
+check(M.roastLevel('Light') < M.roastLevel('Light–medium') && M.roastLevel('Medium') < M.roastLevel('Medium-dark espresso') &&
+  M.roastLevel('Medium-dark espresso') < M.roastLevel('Dark espresso (5/5 per collection)'), 'roast scale is in order');
+check(Math.abs(M.roastLevel('Coffee / filter-style roast; intensity 2.5/4') - 0.525) < 0.01, 'intensity x/y read');
+check(top(['dark', 'robusta', 'Vietnam']).every((c) => c.country === 'Vietnam'), 'dark Vietnamese robusta');
 check(top(['light', 'floral']).every((c) => /^light/i.test(c.roast)), 'light + floral stays light');
 check(!top(['chocolate', 'caramel']).some((c) => /decaf/.test(c.category)), 'decaf only when asked for');
 check(top(['decaf']).every((c) => /decaf/.test(c.category)), 'decaf box finds decafs');

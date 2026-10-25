@@ -1,0 +1,1590 @@
+{
+  "schema_version": "2.0",
+  "package": "Coffee Goose Mk 2 — Canephora Addendum",
+  "checked_on": "2026-10-25",
+  "roasters": [
+    "Quijote Kaffee",
+    "Seekind Coffee",
+    "Aroma Hoch 3",
+    "Kaffeerösterei Laufenmühle",
+    "Mókuska",
+    "Südhang"
+  ],
+  "documents": {
+    "readme": "README.md",
+    "schema": "SCHEMA.md",
+    "coffees": "CANEPHORA_ADDENDUM.md",
+    "grinder": "CANEPHORA_ADDENDUM.md"
+  },
+  "tasting_log_fields": [
+    "brewed_on",
+    "bean_roast_date",
+    "brew_device",
+    "grinder_setting",
+    "dose_g",
+    "water_g",
+    "temperature_c",
+    "aroma",
+    "acidity_1_to_5",
+    "sweetness_1_to_5",
+    "body_1_to_5",
+    "clarity_1_to_5",
+    "flavours_observed",
+    "change_next_time"
+  ],
+  "grinder_calibration": {
+    "model": "1Zpresso X-Ultra",
+    "clicks_per_rotation": 60,
+    "clicks_per_number": 10,
+    "burr_travel_microns_per_click": 12.5,
+    "zero": "Turn dial counter-clockwise to just-starting resistance; stop, do not overtighten; calibrate dial marker at #0 if needed.",
+    "display_format": "R.N.C = full rotations / number (0–5) / extra clicks (0–9), clockwise from zero; e.g., 2.1.5 = 135 clicks.",
+    "grind_estimate_policy": "All recipe-specific X-Ultra settings are editorial starting estimates derived from manufacturer method bands. Not published or experimentally verified by any roaster.",
+    "reference_links": [
+      "https://1zpresso.coffee/grind-setting/",
+      "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg",
+      "https://1zpresso.coffee/jp/manual-xultra-en/"
+    ]
+  },
+  "coffees": [
+    {
+      "id": "quijote--eliane-livio",
+      "name": "Eliane Lívio",
+      "roaster": "Quijote Kaffee",
+      "category": "espresso; canephora",
+      "country": "Brazil",
+      "region": "Boa Vista, Muqui, Espírito Santo",
+      "producer": "Eliane Lívio and Pedro / CAFESUL cooperative",
+      "farm": "Family sítio, Boa Vista",
+      "varietal": "Conilon",
+      "process": "Washed",
+      "altitude_m": null,
+      "roast": "Medium-dark espresso",
+      "tasting": [
+        "Malt",
+        "Hazelnut mousse / nougat",
+        "Sweet pale grape"
+      ],
+      "bio": "Eliane Lívio and her husband Pedro cultivate Conilon near Muqui in Espírito Santo. Their coffee is sold through CAFESUL; Eliane also helped found the Pó de Mulheres women-producer initiative. Quijote roasts this washed 2025 crop medium-dark, retaining a lively, nutty sweetness and unusually plush texture for Canephora.",
+      "flavour_style": "nutty / rounded",
+      "recommendation": "The gentler Switch approach may retain hazelnut and grape-like sweetness without amplifying roast bitterness; contrast with the brighter V60.",
+      "url": "https://www.quijote-kaffee.de/ESPRESSO-Microlot-Eliane-Livio/M-500-117",
+      "warnings": [
+        "Roaster publishes espresso positioning, not a bean-specific V60/Switch/AeroPress recipe.",
+        "Exact farm altitude was not specified in the checked product listing."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 90,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:45–3:15",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 139,
+            "start_setting": "2.1.9",
+            "range_clicks": [
+              130,
+              148
+            ],
+            "range_settings": [
+              "2.1.0",
+              "2.2.8"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 89,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "3:00 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 89°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 3:00.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 154,
+            "start_setting": "2.3.4",
+            "range_clicks": [
+              144,
+              164
+            ],
+            "range_settings": [
+              "2.2.4",
+              "2.4.4"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 89,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:15",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 89°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:15."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 103,
+            "start_setting": "1.4.3",
+            "range_clicks": [
+              94,
+              112
+            ],
+            "range_settings": [
+              "1.3.4",
+              "1.5.2"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-quijote--eliane-livio",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-quijote--eliane-livio"
+    },
+    {
+      "id": "quijote--microconda",
+      "name": "Microconda",
+      "roaster": "Quijote Kaffee",
+      "category": "espresso; canephora",
+      "country": "Ecuador",
+      "region": "Amazonian lowlands (specific locality not stated)",
+      "producer": "WAYLLA KURI cooperative",
+      "farm": "",
+      "varietal": "Robusta (Canephora); cultivar unspecified",
+      "process": "Honey",
+      "altitude_m": null,
+      "roast": "Dark espresso",
+      "tasting": [
+        "Malt",
+        "Cane sugar"
+      ],
+      "bio": "A limited 2025 Ecuadorian lot from WAYLLA KURI: the producers retained some fruit mucilage during drying, yielding a honey-processed Robusta. Quijote describes greater creaminess, body and sweetness compared with its standard washed Cremaconda.",
+      "flavour_style": "malt / syrupy",
+      "recommendation": "A short, cooler Switch steep may emphasize cane-sugar sweetness without making the dark roast too dominant. Use a small sample before committing a whole bag to filter brewing.",
+      "url": "https://www.quijote-kaffee.de/ESPRESSO-Microlot-Microconda/M-500-115",
+      "warnings": [
+        "This is an espresso roast; all three filter/immersion methods are editorial experiments.",
+        "Availability on Quijote listing may vary by weekly batch and pack size."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 87,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:40–3:10",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 144,
+            "start_setting": "2.2.4",
+            "range_clicks": [
+              135,
+              153
+            ],
+            "range_settings": [
+              "2.1.5",
+              "2.3.3"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 88,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "2:45 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 88°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 2:45.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 157,
+            "start_setting": "2.3.7",
+            "range_clicks": [
+              147,
+              167
+            ],
+            "range_settings": [
+              "2.2.7",
+              "2.4.7"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 88,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:15",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 88°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:15."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 106,
+            "start_setting": "1.4.6",
+            "range_clicks": [
+              97,
+              115
+            ],
+            "range_settings": [
+              "1.3.7",
+              "1.5.5"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-quijote--microconda",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-quijote--microconda"
+    },
+    {
+      "id": "quijote--cremaconda",
+      "name": "Cremaconda",
+      "roaster": "Quijote Kaffee",
+      "category": "espresso; canephora",
+      "country": "Ecuador",
+      "region": "Amazonian lowlands",
+      "producer": "WAYLLA KURI cooperative (historical relationship also includes JATARY)",
+      "farm": "Indigenous producers’ chakra forest gardens",
+      "varietal": "Robusta (Canephora); cultivar unspecified",
+      "process": "Washed",
+      "altitude_m": null,
+      "roast": "Dark espresso",
+      "tasting": [
+        "Dark chocolate",
+        "Liquorice",
+        "Vanilla",
+        "Crema"
+      ],
+      "bio": "A washed 2025 crop from WAYLLA KURI, produced by indigenous families in mixed forest-garden chakras in Ecuador’s Amazonian lowlands. Quijote emphasizes dark chocolate, liquorice, strong body, dense crema and a surprisingly soft texture.",
+      "flavour_style": "dark / chocolate / creamy",
+      "recommendation": "Try a cool, concentrated AeroPress cup before a V60: paper filtration may isolate the vanilla/chocolate notes while reducing heavy crema-like body.",
+      "url": "https://www.quijote-kaffee.de/ESPRESSO-Cremaconda/E-001-040",
+      "warnings": [
+        "Quijote explicitly markets this as dark espresso; V60, Switch and AeroPress recipes are editorial only.",
+        "Availability may change with weekly allocations."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 87,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:40–3:10",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 145,
+            "start_setting": "2.2.5",
+            "range_clicks": [
+              136,
+              154
+            ],
+            "range_settings": [
+              "2.1.6",
+              "2.3.4"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 87,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "2:30 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 87°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 2:30.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 161,
+            "start_setting": "2.4.1",
+            "range_clicks": [
+              151,
+              171
+            ],
+            "range_settings": [
+              "2.3.1",
+              "2.5.1"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 87,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:10",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 87°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:10."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 107,
+            "start_setting": "1.4.7",
+            "range_clicks": [
+              98,
+              116
+            ],
+            "range_settings": [
+              "1.3.8",
+              "1.5.6"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-quijote--cremaconda",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-quijote--cremaconda"
+    },
+    {
+      "id": "seekind--gio-100-canephora",
+      "name": "Gio 100% Canephora (Omniroast)",
+      "roaster": "Seekind Coffee",
+      "category": "omniroast; canephora",
+      "country": "Ecuador",
+      "region": "Sumaco Archidona, Napo",
+      "producer": "Witoca Cooperative / Giomar “Gio” Hidalgo, Latitud 0°",
+      "farm": "Kichwa community smallholders in the Sumaco Biosphere Reserve",
+      "varietal": "Napo Payamino (Canephora)",
+      "process": "Yellow Honey",
+      "altitude_m": 900,
+      "roast": "Light–medium omniroast (2/4)",
+      "tasting": [
+        "Cocoa nibs",
+        "Creamy body",
+        "Earthy spice"
+      ],
+      "bio": "Produced with Kichwa communities in Ecuador’s Sumaco Biosphere Reserve and marketed through Giomar Hidalgo’s Latitud 0° project. This Napo Payamino yellow-honey Canephora is intentionally roasted for both espresso and paper-filter brewing. Seekind lists 900 m elevation and a coffee-specific five-pour recipe.",
+      "flavour_style": "cocoa / smooth / earthy",
+      "recommendation": "Use the manufacturer-listed V60 recipe as your control cup, then give it a 3:30 Switch immersion to see whether the cocoa-nib body grows without sacrificing clarity.",
+      "url": "https://seekind.coffee/shop/gio-100-canephora-omniroast/",
+      "warnings": [
+        "Seekind also says its 20 g / 300 g filter recipe is suitable for AeroPress, but five 60 g pours and 300 g water are not reproduced as an AeroPress procedure; the AeroPress method here is editorial."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "roaster_coffee_specific",
+          "source_url": "https://seekind.coffee/shop/gio-100-canephora-omniroast/",
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 93,
+          "grind": "medium",
+          "target_time": "~2:30–3:00",
+          "steps": [
+            "0:00 add 60 g water and bloom for 30 seconds.",
+            "0:30 add 60 g (120 g total).",
+            "1:00 add 60 g (180 g total).",
+            "1:30 add 60 g (240 g total).",
+            "2:00 add final 60 g (300 g total), then allow to finish by about 2:30–3:00."
+          ],
+          "notes": "Published coffee-specific filter recipe: 20 g / 300 g, 93°C, medium grind and five 60 g additions at 30-second intervals. Carried over unchanged in essentials; V60 is the selected hand-filter implementation.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 134,
+            "start_setting": "2.1.4",
+            "range_clicks": [
+              125,
+              143
+            ],
+            "range_settings": [
+              "2.0.5",
+              "2.2.3"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 92,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "3:30 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 92°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 3:30.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 151,
+            "start_setting": "2.3.1",
+            "range_clicks": [
+              141,
+              161
+            ],
+            "range_settings": [
+              "2.2.1",
+              "2.4.1"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 93,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:15",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 93°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:15."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 99,
+            "start_setting": "1.3.9",
+            "range_clicks": [
+              90,
+              108
+            ],
+            "range_settings": [
+              "1.3.0",
+              "1.4.8"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-seekind--gio-100-canephora",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-seekind--gio-100-canephora"
+    },
+    {
+      "id": "aroma-hoch-3--vietnam-rose",
+      "name": "Vietnam RoSé",
+      "roaster": "Aroma Hoch 3",
+      "category": "espresso; canephora",
+      "country": "Vietnam",
+      "region": "Đắk Lắk",
+      "producer": "Great Cherry",
+      "farm": "Great Cherry",
+      "varietal": "Ro Sé (Canephora)",
+      "process": "Anaerobic Natural",
+      "altitude_m": "500–700",
+      "roast": "Dark espresso (5/5 per collection)",
+      "tasting": [
+        "Chocolate-coated raisins",
+        "Papaya",
+        "Sweetness"
+      ],
+      "bio": "A single-origin 100% Fine Robusta from Great Cherry in Đắk Lắk, made from the Ro Sé variety and processed as an anaerobic natural. The roaster describes distinct papaya and chocolate-raisin sweetness despite a strongly developed espresso roast.",
+      "flavour_style": "fruit / rich / intense",
+      "recommendation": "A shorter, lower-temperature V60 may expose the papaya layer; a longer closed Switch steep may instead amplify its syrupy raisin sweetness.",
+      "url": "https://www.aromahoch3.de/products/rose",
+      "warnings": [
+        "The roaster recommends espresso/moka first, with filter as an experiment; no bean-specific V60, Switch or AeroPress quantities were found."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 89,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:45–3:15",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 142,
+            "start_setting": "2.2.2",
+            "range_clicks": [
+              133,
+              151
+            ],
+            "range_settings": [
+              "2.1.3",
+              "2.3.1"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 89,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "3:15 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 89°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 3:15.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting fruit and fermentation. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 156,
+            "start_setting": "2.3.6",
+            "range_clicks": [
+              146,
+              166
+            ],
+            "range_settings": [
+              "2.2.6",
+              "2.4.6"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 89,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:10",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 89°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:10."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 104,
+            "start_setting": "1.4.4",
+            "range_clicks": [
+              95,
+              113
+            ],
+            "range_settings": [
+              "1.3.5",
+              "1.5.3"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-aroma-hoch-3--vietnam-rose",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-aroma-hoch-3--vietnam-rose"
+    },
+    {
+      "id": "aroma-hoch-3--vietnam-sieu-sao",
+      "name": "Vietnam Siêu Sao",
+      "roaster": "Aroma Hoch 3",
+      "category": "espresso; canephora",
+      "country": "Vietnam",
+      "region": "Gia Lai",
+      "producer": "",
+      "farm": "",
+      "varietal": "Fine Robusta (cultivar not published)",
+      "process": "144-hour Anaerobic Natural",
+      "altitude_m": null,
+      "roast": "Dark espresso (5/5 per collection)",
+      "tasting": [
+        "Pistachio",
+        "Nougat",
+        "Honeydew melon"
+      ],
+      "bio": "A Gia Lai Fine Robusta treated with a 144-hour anaerobic natural process. Aroma Hoch 3 highlights pistachio, nougat and honeydew melon. The product listing describes the coffee as an espresso rather than a dedicated filter roast.",
+      "flavour_style": "fermented / nutty / melon",
+      "recommendation": "Try a longer, gentle Switch immersion with minimal agitation as a counterpart to the conventional V60: the hypothesis is stronger pistachio-and-melon sweetness, not a guarantee.",
+      "url": "https://www.aromahoch3.de/products/vietnam-sieu-sao",
+      "warnings": [
+        "The Siêu Sao page appears to include unrelated Guatemala Los Volcanes product-copy lower down. Origin, process and tasting details here come only from its Siêu Sao-specific opening and collection listing.",
+        "Cultivar and exact farm altitude not established."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 88,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:45–3:15",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 143,
+            "start_setting": "2.2.3",
+            "range_clicks": [
+              134,
+              152
+            ],
+            "range_settings": [
+              "2.1.4",
+              "2.3.2"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 89,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "4:00 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 89°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 4:00.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting fruit and fermentation. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 158,
+            "start_setting": "2.3.8",
+            "range_clicks": [
+              148,
+              168
+            ],
+            "range_settings": [
+              "2.2.8",
+              "2.4.8"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 88,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:10",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 88°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:10."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 104,
+            "start_setting": "1.4.4",
+            "range_clicks": [
+              95,
+              113
+            ],
+            "range_settings": [
+              "1.3.5",
+              "1.5.3"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-aroma-hoch-3--vietnam-sieu-sao",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-aroma-hoch-3--vietnam-sieu-sao"
+    },
+    {
+      "id": "aroma-hoch-3--mr-toi",
+      "name": "Mr Toi — 100% Fine Robusta",
+      "roaster": "Aroma Hoch 3",
+      "category": "espresso; canephora",
+      "country": "Vietnam",
+      "region": "Bảo Lộc",
+      "producer": "Nguyen Van Toi",
+      "farm": "Future Coffee Farm",
+      "varietal": "Robusta 138 Peaberry",
+      "process": "Anaerobic Natural",
+      "altitude_m": "900–1000",
+      "roast": "Dark espresso (5/5 per collection)",
+      "tasting": [
+        "Popcorn",
+        "Wild honey",
+        "Vanilla"
+      ],
+      "bio": "A deeply roasted Peaberry Canephora lot from Nguyen Van Toi’s Future Coffee Farm near Bảo Lộc. The roaster reports anaerobic natural processing, robust body and dense crema. Its collection tasting notes emphasize popcorn, wild honey and vanilla.",
+      "flavour_style": "dark / sweet / full-bodied",
+      "recommendation": "Try a cooler, short AeroPress brew as an alternative to espresso, prioritizing creamy vanilla sweetness over heavy roast intensity.",
+      "url": "https://www.aromahoch3.de/products/mr-toi-espresso-fine-robusta",
+      "warnings": [
+        "This is NOT assumed to be the same roast/lot as Mókuska Mr. Toi or Südhang Mr Toi.",
+        "The roaster’s collection lists popcorn/wild honey/vanilla, while body copy elsewhere on its page mentions popcorn/roasted almond/date; both are descriptive, not user tastings."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 87,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:40–3:10",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 146,
+            "start_setting": "2.2.6",
+            "range_clicks": [
+              137,
+              155
+            ],
+            "range_settings": [
+              "2.1.7",
+              "2.3.5"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 87,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "2:45 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 87°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 2:45.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 162,
+            "start_setting": "2.4.2",
+            "range_clicks": [
+              152,
+              172
+            ],
+            "range_settings": [
+              "2.3.2",
+              "2.5.2"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 87,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:10",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 87°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:10."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 108,
+            "start_setting": "1.4.8",
+            "range_clicks": [
+              99,
+              117
+            ],
+            "range_settings": [
+              "1.3.9",
+              "1.5.7"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-aroma-hoch-3--mr-toi",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-aroma-hoch-3--mr-toi"
+    },
+    {
+      "id": "laufenmuehle--peru-el-camino-filter",
+      "name": "Peru El Camino — Coffee / filter roast",
+      "roaster": "Kaffeerösterei Laufenmühle",
+      "category": "filter; canephora",
+      "country": "Peru",
+      "region": "Villa Rica, San Pedro de Pichanaz",
+      "producer": "Cooperativa Agraria Cafetalera CEPRO Yanesha / Yanesha community",
+      "farm": "Smallholder agroforestry fincas",
+      "varietal": "Five local Canephora varieties (individual names not published)",
+      "process": "",
+      "altitude_m": 1500,
+      "roast": "Coffee / filter-style roast; intensity 2.5/4",
+      "tasting": [
+        "Macadamia",
+        "Papaya"
+      ],
+      "bio": "An organic Fine Robusta produced by indigenous Yanesha farmers on remote, biodiverse Peruvian agroforestry plots. The cooperative CEPRO Yanesha manages and quality-controls a mixture of five long-established Canephora varieties. Laufenmühle offers distinct filter and espresso roast versions of the same coffee.",
+      "flavour_style": "nut / papaya / lively",
+      "recommendation": "Start with a straightforward V60 and compare a 3:30 Switch. If papaya disappears under immersion, shorten steep time or lower the water temperature slightly.",
+      "url": "https://einsundalles-shop.de/Peru-El-Camino-Kaffee/PEC-K-GB250",
+      "warnings": [
+        "The roaster does not name the wet/dry processing method on the checked listing; the process field is intentionally blank.",
+        "Same green coffee origin as Laufenmühle El Camino Espresso, but this is a distinct roast SKU."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 320,
+          "temperature_c": 92,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:50–3:25",
+          "steps": [
+            "0:00 wet grounds with 50 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 135 g total, keeping the bed evenly wet.",
+            "1:15 pour to 225 g total.",
+            "1:50 pour to 320 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 133,
+            "start_setting": "2.1.3",
+            "range_clicks": [
+              124,
+              142
+            ],
+            "range_settings": [
+              "2.0.4",
+              "2.2.2"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 320,
+          "temperature_c": 92,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "3:30 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 320 g of water at 92°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 3:30.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 151,
+            "start_setting": "2.3.1",
+            "range_clicks": [
+              141,
+              161
+            ],
+            "range_settings": [
+              "2.2.1",
+              "2.4.1"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 92,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:15",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 92°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:15."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 101,
+            "start_setting": "1.4.1",
+            "range_clicks": [
+              92,
+              110
+            ],
+            "range_settings": [
+              "1.3.2",
+              "1.5.0"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-laufenmuehle--peru-el-camino-filter",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-laufenmuehle--peru-el-camino-filter"
+    },
+    {
+      "id": "laufenmuehle--peru-el-camino-espresso",
+      "name": "Peru El Camino — Espresso roast",
+      "roaster": "Kaffeerösterei Laufenmühle",
+      "category": "espresso; canephora",
+      "country": "Peru",
+      "region": "Villa Rica, San Pedro de Pichanaz",
+      "producer": "Cooperativa Agraria Cafetalera CEPRO Yanesha / Yanesha community",
+      "farm": "Smallholder agroforestry fincas",
+      "varietal": "Five local Canephora varieties (individual names not published)",
+      "process": "",
+      "altitude_m": 1500,
+      "roast": "Espresso roast; intensity 4/4",
+      "tasting": [
+        "Chocolate",
+        "Tropical fruit"
+      ],
+      "bio": "The deeper espresso-roast counterpart to El Camino Coffee, grown by Yanesha smallholders in high-biodiversity agroforestry at about 1,500 m and coordinated by CEPRO Yanesha. The roaster emphasizes intense chocolate, hints of tropical fruit and abundant crema; the espresso won a 2025 German Roasters’ Guild tasting gold medal.",
+      "flavour_style": "chocolate / tropical / intense",
+      "recommendation": "Brew beside the filter-roast El Camino with the same water and brewer. This isolates the effect of roast style, although grind and extraction may need individual adjustment.",
+      "url": "https://einsundalles-shop.de/Peru-El-Camino-Espresso/PEC-E-GB250",
+      "warnings": [
+        "Processing method is not specified; no washed/natural classification is assumed.",
+        "Gold medal specifically applies to the espresso roast, not automatically to the filter roast."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 89,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:40–3:10",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 143,
+            "start_setting": "2.2.3",
+            "range_clicks": [
+              134,
+              152
+            ],
+            "range_settings": [
+              "2.1.4",
+              "2.3.2"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 89,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "2:45 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 89°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 2:45.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 159,
+            "start_setting": "2.3.9",
+            "range_clicks": [
+              149,
+              169
+            ],
+            "range_settings": [
+              "2.2.9",
+              "2.4.9"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 89,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:10",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 89°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:10."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 107,
+            "start_setting": "1.4.7",
+            "range_clicks": [
+              98,
+              116
+            ],
+            "range_settings": [
+              "1.3.8",
+              "1.5.6"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-laufenmuehle--peru-el-camino-espresso",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-laufenmuehle--peru-el-camino-espresso"
+    },
+    {
+      "id": "mokuska--mr-toi-espresso",
+      "name": "Espresso Mr. Toi",
+      "roaster": "Mókuska",
+      "category": "espresso; canephora",
+      "country": "Vietnam",
+      "region": "Bảo Lộc (product page also spells Bao Lac)",
+      "producer": "Toi Nguyen",
+      "farm": "Future Coffee Farm",
+      "varietal": "Robusta 138",
+      "process": "Black Honey",
+      "altitude_m": "800–1000",
+      "roast": "Medium-dark",
+      "tasting": [
+        "Popcorn",
+        "Dark chocolate",
+        "Red apple"
+      ],
+      "bio": "Mókuska’s current Mr. Toi is a medium-dark Black Honey processed Fine Robusta from Toi Nguyen’s Future Coffee Farm near Bảo Lộc. This coffee has been brought back after a previous lot was lost to warehouse water damage. It should not be conflated with other roasters’ differently processed Mr. Toi releases.",
+      "flavour_style": "sweet / spicy / chocolate",
+      "recommendation": "Compare a 3:30 Switch immersion to Party On at the same dose. The more developed roast may emphasize chocolate over the fruitier aspects of that carbonic-macerated coffee.",
+      "url": "https://mokuska-caffe.de/collections/shop/products/espresso-mr-toi-250g",
+      "warnings": [
+        "The current product page describes Black Honey; Mókuska’s earlier blog uses Honey Anaerobic. Current SKU wording takes precedence.",
+        "Page spelling “Bao Lac” conflicts with its own descriptive text “Bao Loc”; recorded as Bảo Lộc, but retain warning."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 18,
+          "water_g": 270,
+          "temperature_c": 90,
+          "grind": "medium / medium-coarse; editorial",
+          "target_time": "~2:45–3:15",
+          "steps": [
+            "0:00 wet grounds with 45 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 115 g total, keeping the bed evenly wet.",
+            "1:15 pour to 190 g total.",
+            "1:50 pour to 270 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "This V60 pulse schedule is an editorial suggested implementation; tune flow to the listed drawdown target.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 141,
+            "start_setting": "2.2.1",
+            "range_clicks": [
+              132,
+              150
+            ],
+            "range_settings": [
+              "2.1.2",
+              "2.3.0"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 90,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "3:30 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 90°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 3:30.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting body and sweetness. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 157,
+            "start_setting": "2.3.7",
+            "range_clicks": [
+              147,
+              167
+            ],
+            "range_settings": [
+              "2.2.7",
+              "2.4.7"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 90,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:15",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 90°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:15."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 105,
+            "start_setting": "1.4.5",
+            "range_clicks": [
+              96,
+              114
+            ],
+            "range_settings": [
+              "1.3.6",
+              "1.5.4"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-mokuska--mr-toi-espresso",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-mokuska--mr-toi-espresso"
+    },
+    {
+      "id": "suedhang--mr-toi-winey-natural",
+      "name": "Mr Toi — Winey Natural",
+      "roaster": "Südhang",
+      "category": "espresso; canephora",
+      "country": "Vietnam",
+      "region": "Bảo Lộc",
+      "producer": "Toi Nguyen",
+      "farm": "Future Coffee Farm",
+      "varietal": "Robusta Se",
+      "process": "Winey Natural; 70-hour fermentation",
+      "altitude_m": "800–1000",
+      "roast": "Espresso roast (level not specified)",
+      "tasting": [
+        "Maple syrup",
+        "Strawberry jam",
+        "Vanilla"
+      ],
+      "bio": "A limited 300 kg Winey Natural Canephora produced at Future Coffee Farm in Bảo Lộc and roasted by Südhang as espresso. The product page describes the Robusta Se variety and a 70-hour fermentation, and unusually offers recipe ratios for both French Press and pour-over alongside its espresso recommendation.",
+      "flavour_style": "jammy / sweet / fermented",
+      "recommendation": "This is the second roaster-supported pour-over test after Seekind Gio: brew the 1:16, 87°C pour-over as a control, then use a long Switch steep to explore strawberry-jam sweetness.",
+      "url": "https://www.suedhang.org/product/mr-toi-2/",
+      "warnings": [
+        "Product page gives pour-over ratio (1:16), temperature (87°C), and duration (2:00–2:30) but not a V60-specific pour schedule. Our four-pour steps below are editorial V60 execution of those published parameters.",
+        "Winey Natural 70-hour lot is distinct from Mókuska Black Honey and Aroma Hoch 3 Anaerobic Natural releases."
+      ],
+      "recipes": [
+        {
+          "method": "v60_pour_over",
+          "source_type": "roaster_coffee_specific",
+          "source_url": "https://www.suedhang.org/product/mr-toi-2/",
+          "dose_g": 20,
+          "water_g": 320,
+          "temperature_c": 87,
+          "grind": "medium (roaster not V60-specific)",
+          "target_time": "2:00–2:30 (roaster pour-over target)",
+          "steps": [
+            "0:00 wet grounds with 50 g of water; allow ~35–40 seconds of bloom.",
+            "0:40 pour gently to 135 g total, keeping the bed evenly wet.",
+            "1:15 pour to 225 g total.",
+            "1:50 pour to 320 g total and allow to draw down. Avoid aggressive swirling with dark roasts."
+          ],
+          "notes": "Roaster-published bean-specific pour-over parameters: 1:16, 87°C, 2:00–2:30. **The V60 pulse schedule is editorial**, not published by Südhang. If four pours overshoot the target, reduce agitation or adjust grind; record actual time.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 141,
+            "start_setting": "2.2.1",
+            "range_clicks": [
+              132,
+              150
+            ],
+            "range_settings": [
+              "2.1.2",
+              "2.3.0"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "Start at the listed setting. If thin/underdeveloped and draining too fast, go ~4 clicks finer. If drying/bitter, or draining too slowly, go ~4 clicks coarser; cool water 1–2°C for harsh dark roasts. Taste takes priority over the clock.",
+            "basis": "Estimated from the X-Ultra manufacturer pour-over zone, this recipe’s intended flow, and the bean’s roasting/processing. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "v60_switch_immersion",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 20,
+          "water_g": 300,
+          "temperature_c": 89,
+          "grind": "medium-coarse (editorial)",
+          "target_time": "4:00 with valve closed, then drain (Switch 03)",
+          "steps": [
+            "Rinse V60/Switch paper, place on server and close the Switch valve.",
+            "Add 20 g of coffee and 300 g of water at 89°C, fully saturating all grounds.",
+            "Give one gentle stir/swirl to remove dry pockets; leave closed for 4:00.",
+            "Open the valve and allow the brew to pass through the paper. Taste both warm and cooler."
+          ],
+          "notes": "Editorial experiment targeting fruit and fermentation. Full-dose recipe assumes Switch **03 (~360 mL)**. On Switch **02 (~200 mL)** use **12 g coffee / 180 g water**, same temperature and steep; the smaller cup will differ slightly in ratio. Do not overfill beyond the brewer’s rated capacity. Steep time precedes drawdown.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 157,
+            "start_setting": "2.3.7",
+            "range_clicks": [
+              147,
+              167
+            ],
+            "range_settings": [
+              "2.2.7",
+              "2.4.7"
+            ],
+            "adjustment_step_clicks": 5,
+            "dial_in": "If flat/weak, go ~5 clicks finer or steep 30 seconds longer. If muddy/drying or painfully slow to drain, go ~5 coarser or steep shorter. Clocked steep ends when valve opens, not when drawdown finishes.",
+            "basis": "Estimated from broad X-Ultra pour-over and coarse-brewing zones, adjusted for a closed-valve steep; maker provides no dedicated Switch calibration.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        },
+        {
+          "method": "aeropress",
+          "source_type": "editorial_suggestion",
+          "source_url": null,
+          "dose_g": 15,
+          "water_g": 225,
+          "temperature_c": 89,
+          "grind": "medium-fine (editorial)",
+          "target_time": "~2:15",
+          "steps": [
+            "Use standard AeroPress orientation, a rinsed paper filter, and a stable heat-safe mug.",
+            "Add 15 g of ground coffee. At 0:00, add 225 g of water at 89°C and stir gently 2–3 times.",
+            "Insert the plunger just far enough to form a seal; do not press yet.",
+            "Begin a slow, controlled press after roughly 1:45–1:50 total elapsed time; finish around ~2:15."
+          ],
+          "notes": "Editorial AeroPress starting point, not a bean-specific roaster recipe. Fits a standard AeroPress chamber; a capped, gentle steep reduces dripping. Do not try to fit Seekind’s published 300 g pour-over dose in a standard AeroPress chamber.",
+          "grind_x_ultra": {
+            "model": "1Zpresso X-Ultra",
+            "start_clicks": 103,
+            "start_setting": "1.4.3",
+            "range_clicks": [
+              94,
+              112
+            ],
+            "range_settings": [
+              "1.3.4",
+              "1.5.2"
+            ],
+            "adjustment_step_clicks": 4,
+            "dial_in": "If weak/underdeveloped, go ~4 clicks finer or extend immersion slightly. If pressing is difficult or the cup is harsh, go ~4 clicks coarser, lower temperature slightly, or press more gently.",
+            "basis": "Estimated from the X-Ultra manufacturer AeroPress zone and the recommended steep/press recipe. Not cup-tested.",
+            "provenance": "editorial_estimate_not_roaster_published_or_brew_tested",
+            "reference_url": "https://1zpresso.coffee/wp-content/uploads/2023/08/X-Ultra-Grind-setting-reference-20230802.jpg"
+          }
+        }
+      ],
+      "checked_on": "2026-10-25",
+      "availability": null,
+      "personal_tasting_observation": null,
+      "species": "Coffea canephora",
+      "markdown_section": "CANEPHORA_ADDENDUM.md#coffee-suedhang--mr-toi-winey-natural",
+      "grinder_section": "CANEPHORA_ADDENDUM.md#grind-suedhang--mr-toi-winey-natural"
+    }
+  ],
+  "addendum_for": "Coffee Goose Mk 2 (2026-10-25); append coffees[] by unique id",
+  "addendum_note": "Both section link fields point into CANEPHORA_ADDENDUM.md; all other Mk 2 field semantics retained. coffee.species is an optional extension."
+}

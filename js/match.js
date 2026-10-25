@@ -16,7 +16,7 @@
   };
 
   const FLAGS = {
-    Ethiopia: '🇪🇹', Kenya: '🇰🇪', Colombia: '🇨🇴', Brazil: '🇧🇷', Panama: '🇵🇦', Mexico: '🇲🇽',
+    Ethiopia: '🇪🇹', Vietnam: '🇻🇳', Peru: '🇵🇪', Kenya: '🇰🇪', Colombia: '🇨🇴', Brazil: '🇧🇷', Panama: '🇵🇦', Mexico: '🇲🇽',
     'Costa Rica': '🇨🇷', Ecuador: '🇪🇨', 'El Salvador': '🇸🇻', Guatemala: '🇬🇹', Nicaragua: '🇳🇮', Honduras: '🇭🇳',
   };
 
@@ -45,6 +45,7 @@
       { id: 'caramel', label: 'Caramel & honey' },
       { id: 'nutty', label: 'Nutty' },
       { id: 'boozy', label: 'Boozy & winey' },
+      { id: 'earthy', label: 'Earthy & spicy' },
     ] },
     { id: 'process', label: 'Process', mode: 'any', weight: 2, items: [
       { id: 'washed', label: 'Washed' },
@@ -65,6 +66,8 @@
       { id: 'Ecuador', label: 'Ecuadorian' },
       { id: 'Honduras', label: 'Honduran' },
       { id: 'Nicaragua', label: 'Nicaraguan' },
+      { id: 'Vietnam', label: 'Vietnamese' },
+      { id: 'Peru', label: 'Peruvian' },
     ] },
     { id: 'species', label: 'Plant', mode: 'any', weight: 1.5, items: [
       { id: 'arabica', label: 'Arabica' },
@@ -84,10 +87,27 @@
     floral: ['jasmine', 'floral', 'flower', 'hibiscus', 'lavender', 'elderflower', 'bergamot', 'nectar', 'florals'],
     tea: ['tea', 'rooibos', 'oolong'],
     chocolate: ['chocolate', 'cocoa', 'ganache'],
-    caramel: ['caramel', 'honey', 'sugar', 'toffee', 'vanilla', 'brûlée', 'nougat', 'praline', 'candy', 'syrup', 'muffin', 'waffle', 'shortbread', 'macarons', 'banana bread'],
-    nutty: ['almond', 'nut', 'pecan', 'macadamia', 'praline', 'nougat', 'amaretti', 'cantuccini', 'hazelnut'],
+    caramel: ['caramel', 'honey', 'sugar', 'toffee', 'vanilla', 'brûlée', 'nougat', 'praline', 'candy', 'syrup', 'muffin', 'waffle', 'shortbread', 'macarons', 'banana bread', 'maple'],
+    nutty: ['almond', 'nut', 'pecan', 'macadamia', 'praline', 'nougat', 'amaretti', 'cantuccini', 'hazelnut', 'pistachio', 'popcorn', 'malt'],
     boozy: ['cognac', 'rum', 'port wine', 'wine', 'sangria', 'champagne', 'whisky'],
+    earthy: ['earth', 'spice', 'spicy', 'liquorice', 'licorice', 'tobacco', 'smok', 'malt'],
   };
+
+  // Roast as a number from 0 (lightest) to 1 (darkest). Roasters write it many ways:
+  // "Light", "Medium–strong filter", "Dark espresso (5/5 per collection)", "Espresso roast; intensity 4/4".
+  function roastLevel(roast) {
+    const r = roast.toLowerCase();
+    const scale = /(\d(?:\.\d)?)\s*\/\s*(\d)/.exec(r);
+    if (scale && +scale[2] > 1) return 0.1 + (0.85 * (+scale[1] - 1)) / (+scale[2] - 1);
+    if (/medium.?dark/.test(r)) return 0.75;
+    if (/dark/.test(r)) return 0.95;
+    if (/medium.?strong/.test(r)) return 0.65;
+    if (/light.?medium/.test(r)) return 0.3;
+    if (/medium/.test(r)) return 0.5;
+    if (/espresso/.test(r)) return 0.75;
+    if (/light/.test(r)) return 0.1;
+    return 0.3;
+  }
 
   const wordRe = (w) => new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   // the tasting descriptors (not words) that mention any of `words`, so "chocolate ganache" counts once
@@ -100,24 +120,23 @@
     const tasting = c.tasting.join(' · ').toLowerCase();
     const descriptors = c.tasting.map((t) => t.toLowerCase());
     const proc = c.process.toLowerCase();
-    const roast = c.roast.toLowerCase();
     const varietal = c.varietal.toLowerCase();
     const f = {}, hits = {};
 
     for (const k of Object.keys(WORDS)) hits[k] = has(descriptors, WORDS[k]);
     for (const k of ['berry', 'citrus', 'stone', 'tropical', 'floral', 'tea', 'chocolate', 'caramel', 'nutty']) f[k] = fromCount(hits[k].length);
+    const style = (c.flavour_style || '').toLowerCase();
+    f.earthy = Math.max(fromCount(hits.earthy.length), /earthy|spic/.test(style) ? 0.75 : 0);
     f.boozy = Math.max(fromCount(hits.boozy.length), /rum|barrel/.test(proc) ? 0.75 : 0);
     const fruit = new Set([...hits.berry, ...hits.citrus, ...hits.stone, ...hits.tropical, ...hits.otherFruit]).size;
     f.fruity = clamp(fruit * 0.34 + (c.flavour_style === 'fruity' ? 0.3 : 0));
     hits.fruity = [...new Set([...hits.berry, ...hits.citrus, ...hits.stone, ...hits.tropical, ...hits.otherFruit])];
 
     // roast
-    const isMediumStrong = /medium.?strong/.test(roast);
-    const isLightMedium = /light.?medium/.test(roast);
-    const isMedium = !isLightMedium && !isMediumStrong && /medium/.test(roast);
-    f.light = isLightMedium ? 0.6 : (isMedium || isMediumStrong) ? 0.1 : 1;
-    f.medium = isMedium ? 1 : isMediumStrong ? 0.8 : isLightMedium ? 0.7 : 0.15;
-    f.dark = isMediumStrong ? 0.85 : isMedium ? 0.6 : isLightMedium ? 0.3 : 0;
+    const level = roastLevel(c.roast);
+    f.light = clamp(1 - Math.abs(level - 0.1) * 2);
+    f.medium = clamp(1 - Math.abs(level - 0.5) * 2);
+    f.dark = clamp(1 - Math.abs(level - 0.95) * 2);
 
     // process
     const fermented = /anaerobic|carbonic|maceration|yeast|ferment|cascara|tyoxidator/.test(proc);
@@ -127,7 +146,7 @@
     f.fermented = fermented ? 1 : c.flavour_style === 'experimental' ? 0.5 : 0;
 
     // plant
-    const robusta = /canephora|conilon|robusta/.test(varietal);
+    const robusta = /canephora|conilon|robusta/.test(varietal + ' ' + (c.species || '').toLowerCase());
     f.robusta = robusta ? 1 : 0;
     f.arabica = robusta ? 0 : 1;
     f.geisha = /geisha|gesha/.test(varietal) ? 1 : 0;
@@ -138,8 +157,8 @@
 
     // body & feel
     const sweetHeavy = Math.max(f.chocolate, f.caramel, f.nutty);
-    f.full = clamp((c.flavour_style === 'round' ? 0.45 : 0) + sweetHeavy * 0.35 +
-      (f.natural || f.honey ? 0.15 : 0) + (f.medium >= 0.7 ? 0.2 : 0) + (robusta ? 0.6 : 0));
+    f.full = clamp((c.flavour_style === 'round' ? 0.45 : 0) + (/full|rich|creamy|syrup|intense/.test(style) ? 0.3 : 0) +
+      sweetHeavy * 0.35 + (f.natural || f.honey ? 0.15 : 0) + (level >= 0.5 ? 0.2 : 0) + (robusta ? 0.6 : 0));
     f.delicate = clamp((c.flavour_style === 'delicate' ? 0.6 : 0) + Math.max(f.floral, f.tea) * 0.3 +
       (f.washed ? 0.15 : 0) + (f.geisha ? 0.15 : 0) - (robusta ? 1 : 0));
     f.bright = clamp(Math.max(f.citrus, f.berry, f.tropical) * 0.5 + (/kenya/i.test(c.country) ? 0.3 : 0) +
@@ -194,7 +213,19 @@
     return '1:' + (Math.round(x * 10) / 10).toString().replace(/\.0$/, '');
   }
 
-  const api = { METHODS, SOURCE_TYPES, FLAGS, GROUPS, profile, rank, clicksToSetting, settingToClicks, ratio };
+  // Several catalog files (the base catalog plus addenda) become one: roasters in order, coffees by unique id.
+  function mergeCatalogs(list) {
+    const out = Object.assign({}, list[0], { roasters: [], coffees: [] });
+    const ids = new Set();
+    for (const cat of list) {
+      for (const r of cat.roasters || []) if (!out.roasters.includes(r)) out.roasters.push(r);
+      for (const c of cat.coffees || []) if (!ids.has(c.id)) { ids.add(c.id); out.coffees.push(c); }
+    }
+    for (const c of out.coffees) if (!out.roasters.includes(c.roaster)) out.roasters.push(c.roaster);
+    return out;
+  }
+
+  const api = { mergeCatalogs, roastLevel, METHODS, SOURCE_TYPES, FLAGS, GROUPS, profile, rank, clicksToSetting, settingToClicks, ratio };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.CGMatch = api;
 })(typeof window !== 'undefined' ? window : globalThis);

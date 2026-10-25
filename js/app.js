@@ -4,6 +4,7 @@
 
   const M = window.CGMatch;
   const G = window.CGGuide;
+  const I = window.CGInsights;
   const VERSION = window.CG_VERSION || 'dev';
   const STORE_KEY = 'coffeeGoose.v1';
 
@@ -11,6 +12,11 @@
     'Mókuska': { emoji: '🐿️', c: '#8cf02c', t: '#000' },
     'Leuchtfeuer': { emoji: '🔦', c: '#ffd60a', t: '#000' },
     'The Barn': { emoji: '🌾', c: '#c2132f', t: '#fff' },
+    'Quijote Kaffee': { emoji: '🐴', c: '#3d5afe', t: '#fff', short: 'Quijote' },
+    'Seekind Coffee': { emoji: '🌊', c: '#00bfa5', t: '#000', short: 'Seekind' },
+    'Aroma Hoch 3': { emoji: '⛰️', c: '#8e2de2', t: '#fff', short: 'Aroma Hoch\u00a03' },
+    'Kaffeerösterei Laufenmühle': { emoji: '⚙️', c: '#ff8fd0', t: '#000', short: 'Laufenmühle' },
+    'Südhang': { emoji: '🍇', c: '#ff9966', t: '#000' },
   };
   const FALLBACK_STYLE = { emoji: '☕', c: '#00bfa5', t: '#000' };
   const RATING_LABELS = ['', 'Down the drain', 'Meh', 'Solid cup', 'Really good', 'Honk-worthy!'];
@@ -30,7 +36,8 @@
     ['Geisha', 'The Geisha (Gesha) variety comes from the Gesha area of Ethiopia and made its name in Panama. Famous for jasmine and bergamot.'],
     ['Rinse your paper', 'Pour hot water through the paper filter before brewing. It washes out the papery taste and warms the brewer.'],
     ['Grams, not millilitres', 'Weigh your water: 1 g of water is 1 mL, and a scale is far more accurate than a jug.'],
-    ['Robusta', 'Coffea canephora, aka robusta, is hardier than arabica and carries roughly twice the caffeine. Party On from Mókuska is one.'],
+    ['Robusta', 'Coffea canephora, aka robusta, is hardier than arabica and carries roughly twice the caffeine. Tick Robusta in the Bean Picker to see them all.'],
+    ['Espresso roasts on filter', 'Beans sold as espresso roasts can work in a V60 or AeroPress too. Coffee Goose marks those recipes as Goose suggestions, not the roaster’s.'],
   ];
 
   let catalog = null;
@@ -64,10 +71,15 @@
 
   /* ============ catalog ============ */
 
+  // data/index.json lists the base catalog and any addenda; they merge into one by coffee id.
   async function loadCatalog() {
-    const res = await fetch('data/catalog.json', { cache: 'no-cache' });
-    if (!res.ok) throw new Error('Could not load data/catalog.json');
-    catalog = await res.json();
+    const get = async (f) => {
+      const res = await fetch('data/' + f, { cache: 'no-cache' });
+      if (!res.ok) throw new Error('Could not load data/' + f);
+      return res.json();
+    };
+    const manifest = await get('index.json');
+    catalog = M.mergeCatalogs(await Promise.all(manifest.files.map(get)));
     coffees = catalog.coffees;
     byId.clear();
     for (const c of coffees) byId.set(c.id, c);
@@ -79,12 +91,13 @@
   const methodInfo = (id) => M.METHODS.find((m) => m.id === id);
   const recipeFor = (c, method) => c.recipes.find((r) => r.method === method);
   const flag = (c) => M.FLAGS[c.country] || '🌍';
-  const roastShort = (c) => c.roast.replace(/\s*\(.*\)/, '');
-  const processShort = (c) => c.process.split(';')[0];
+  const roastShort = (c) => c.roast.replace(/\s*\(.*\)/, '').split(';')[0];
+  const processShort = (c) => (c.process ? c.process.split(';')[0] : 'Process n/a');
 
   function coffeeTags(c) {
     const t = [];
     if (/decaf/.test(c.category)) t.push('<span class="tag decaf">DECAF</span>');
+    if (/espresso/.test(c.category)) t.push('<span class="tag espresso">ESPRESSO</span>');
     if (/sold out/i.test(c.availability || '')) t.push('<span class="tag out">SOLD OUT</span>');
     else if (c.availability) t.push('<span class="tag last">LAST CHANCE</span>');
     if (log.count(c.id)) t.push(`<span class="tag logged">📓${log.count(c.id)}</span>`);
@@ -131,7 +144,7 @@
       const s = roasterStyle(r);
       const n = coffees.filter((c) => c.roaster === r).length;
       return `<button class="tile ${state.roaster === r ? 'selected' : ''}" style="--c:${s.c};--t:${s.t}" data-roaster="${esc(r)}" aria-pressed="${state.roaster === r}">
-        <span class="emoji">${s.emoji}</span><span class="name">${esc(r)}</span><span class="count">${n} beans</span></button>`;
+        <span class="emoji">${s.emoji}</span><span class="name">${esc(s.short || r)}</span><span class="count">${n} bean${n === 1 ? '' : 's'}</span></button>`;
     }).join('');
   }
 
@@ -180,6 +193,7 @@
         </div>
         <div class="chips">${c.tasting.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div>
         <p class="cc-bio">${esc(c.bio)}</p>
+        ${bestPracticeHTML(c)}
         ${c.personal_tasting_observation ? `<p class="legacy" style="margin-top:8px">📝 <b>Your earlier note:</b> ${esc(c.personal_tasting_observation)}</p>` : ''}
         <details class="cc-more">
           <summary>More about this coffee</summary>
@@ -192,6 +206,57 @@
       </article>`;
   }
 
+  /* ---------- best practice, from the brew log ---------- */
+
+  const insightFor = (c) => {
+    const entries = log.all().filter((e) => e.coffee_id === c.id);
+    return entries.length ? I.bestPractice(entries) : null;
+  };
+  const starsShort = (n) => `★${n.toFixed(1)}`;
+  const brewsWord = (n) => `${n} brew${n === 1 ? '' : 's'}`;
+
+  function bestPracticeHTML(c) {
+    const b = insightFor(c);
+    if (!b) return '';
+    if (!b.scored) {
+      return `<div class="best"><div class="best-head">🏆 Your best practice</div>
+        <p class="best-why">You’ve logged ${brewsWord(b.brews)} of this bean. Add stars or a few words about the taste, and Coffee Goose will work out your best way to brew it.</p></div>`;
+    }
+    const m = methodInfo(b.method);
+    const st = b.settings;
+    const recipe = recipeFor(c, b.method);
+    const parts = [
+      st.grind ? `grind <b>${esc(st.grind)}</b>` : '',
+      st.dose_g != null && st.water_g != null ? `<b>${st.dose_g} g</b> → <b>${st.water_g} g</b>` : '',
+      st.temperature_c != null ? `<b>${G.toF(st.temperature_c)}°F</b>` : '',
+      st.brew_time ? `about <b>${esc(st.brew_time)}</b>` : (recipe ? `about <b>${esc(recipe.target_time.replace(/^approximately\s*/i, '~').split(/[,(]/)[0].trim())}</b>` : ''),
+    ].filter(Boolean);
+    const conf = { high: 'Confident', medium: 'Getting there', low: 'Early days' }[b.confidence];
+    const top = b.methods[0];
+    const others = b.methods.slice(1).map((x) => `${esc(methodInfo(x.method).label)}: ${brewsWord(x.count)}, ${starsShort(x.stars)}`);
+    let why = b.methods.length > 1
+      ? `Your ${brewsWord(top.count)} on the ${esc(m.label)} average <b>${starsShort(top.stars)}</b>.`
+      : `Based on your ${brewsWord(top.count)} on the ${esc(m.label)} (${starsShort(top.stars)} average).`;
+    if (b.quote) why += ` You wrote: “${esc(b.quote)}” (${esc(fmtDay(b.quoteDate))}).`;
+    if (others.length) why += ` <span class="small">${others.join(' · ')}</span>`;
+    const grindNote = b.grinds.length > 1
+      ? `<p class="best-why">Best grind so far: <b>${esc(b.grinds[0].grind)}</b> (${starsShort(b.grinds[0].stars)}, ${brewsWord(b.grinds[0].n)}), ahead of ${b.grinds.slice(1, 3).map((g) => `${esc(g.grind)} (${starsShort(g.stars)})`).join(', ')}.</p>`
+      : '';
+    return `<div class="best">
+      <div class="best-head">🏆 Your best practice <span class="conf conf-${b.confidence}">${conf} · ${brewsWord(b.brews)}</span></div>
+      <div class="best-main"><img src="${m.icon}" alt=""><span><b>${esc(m.long)}</b>${parts.length ? ' with ' + parts.join(', ') : ''}</span></div>
+      ${b.close ? `<p class="best-why">⚖️ It’s close: your ${esc(methodInfo(b.methods[1].method).label)} brews are nearly as good. Brew both again to settle it.</p>` : ''}
+      <p class="best-why">${why}</p>
+      ${grindNote}
+      ${b.nextTime ? `<p class="best-why">🔁 Your note for next time: “${esc(b.nextTime)}”</p>` : ''}
+      <button class="btn small" data-best="${esc(b.method)}">☕ Brew it this way</button>
+    </div>`;
+  }
+  $('#coffee-card').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-best]');
+    if (b) chooseMethod(b.dataset.best);
+  });
+
   function renderMethods() {
     const box = $('#methods');
     const c = byId.get(state.bean);
@@ -199,10 +264,13 @@
       box.innerHTML = '<p class="methods-empty">Pick a bean, then choose how you’re brewing it.</p>';
       return;
     }
+    const best = insightFor(c);
+    const bestMethod = best && best.scored ? best.method : null;
     box.innerHTML = M.METHODS.map((m) => {
       const r = recipeFor(c, m.id);
       const src = r ? M.SOURCE_TYPES[r.source_type] : null;
       return `<button class="tile method-tile ${state.method === m.id ? 'selected' : ''}" style="--c:${m.c};--t:${m.t}" data-method="${m.id}" aria-pressed="${state.method === m.id}" ${r ? '' : 'disabled'}>
+        ${m.id === bestMethod ? '<span class="trophy" title="Your best so far">🏆</span>' : ''}
         <img src="${m.icon}" alt="">
         <span class="name">${m.label}</span>
         <span class="src">${src ? esc(src.label) : 'No recipe'}</span></button>`;
@@ -311,6 +379,8 @@
     const src = M.SOURCE_TYPES[r.source_type] || { label: r.source_type, blurb: '', cls: 'src-goose' };
     const ratio = M.ratio(r);
     const plan = G.guide(r);
+    const mine = I.bestPractice(log.forRecipe(c.id, method));
+    const myBest = mine && mine.settings ? mine.settings.grind : null;
     const el = document.createElement('div');
     el.className = 'recipe sunken';
 
@@ -397,6 +467,7 @@
             <div class="dial" aria-hidden="true">${ticks.join('')}</div>
             <p>Range <b>${esc(g.range_settings[0])}–${esc(g.range_settings[1])}</b> (${lo}–${hi} clicks). Adjust in steps of <b>${g.adjustment_step_clicks}</b>.</p>
             <details><summary>How to dial in</summary><p>${esc(g.dial_in)}</p><p class="small">${esc(g.basis)}</p></details>
+            ${myBest ? `<p class="mine">🏆 Your best on this brewer so far: <b>${esc(myBest)}</b></p>` : ''}
             <p class="small">🪿 Editorial starting estimate, not roaster-published or brew-tested.</p>
           </div>
 
@@ -469,7 +540,15 @@
         shown = now;
       }
     }
+    // the brew log's "Brew time" field follows the timer until someone types in it
+    const timeField = () => $('input[name="brew_time"]', el);
+    function fillTime() {
+      const f = timeField();
+      if (f && elapsed >= 10000 && (!f.value || f.dataset.auto)) { f.value = fmt(elapsed / 1000); f.dataset.auto = '1'; }
+    }
+    el._fillTime = fillTime;
     function pause() {
+      fillTime();
       clearInterval(tick);
       tick = null;
       goBtn.textContent = elapsed ? '▶ Resume' : '▶ Start';
@@ -504,17 +583,23 @@
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   }
+  // 25.10.2026
+  function fmtDay(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+    return m ? `${m[3]}.${m[2]}.${m[1]}` : iso || '';
+  }
+  // Sun 25.10.2026
   function fmtDate(iso) {
     if (!iso) return '';
     const d = new Date(iso + 'T12:00:00');
-    return isNaN(d) ? iso : d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    return isNaN(d) ? iso : `${d.toLocaleDateString(undefined, { weekday: 'short' })} ${fmtDay(iso)}`;
   }
   const starText = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
 
   function entryHTML(e, { withDelete = true } = {}) {
     const pips = window.CGLog.SCALES.filter((k) => e[k]).map((k) => `<span>${SCALE_LABELS[k]} <i>${'■'.repeat(e[k])}${'□'.repeat(5 - e[k])}</i></span>`).join('');
     const kv = [
-      ['Grind', e.grinder_setting], ['Coffee', e.dose_g != null ? e.dose_g + ' g' : ''], ['Water', e.water_g != null ? e.water_g + ' g' : ''],
+      ['Grind', e.grinder_setting], ['Time', e.brew_time], ['Coffee', e.dose_g != null ? e.dose_g + ' g' : ''], ['Water', e.water_g != null ? e.water_g + ' g' : ''],
       ['Temp', e.temperature_c != null ? G.toF(e.temperature_c) + '°F' : ''], ['Roasted', e.bean_roast_date ? fmtDate(e.bean_roast_date) : ''],
     ].filter(([, v]) => v).map(([k, v]) => `${k} <b>${esc(v)}</b>`).join(' · ');
     return `
@@ -531,6 +616,8 @@
 
   function renderLogSection(host, c, r) {
     const draft = { rating: 0 };
+    const mine = I.bestPractice(log.forRecipe(c.id, r.method));
+    const myGrind = mine && mine.settings ? mine.settings.grind : null;
     const g = r.grind_x_ultra;
     const scaleRow = (k) => `<div class="scale" data-scale="${k}"><span class="scale-name">${SCALE_LABELS[k]}</span>${[1, 2, 3, 4, 5].map((n) => `<button type="button" class="btn" data-v="${n}">${n}</button>`).join('')}</div>`;
 
@@ -545,9 +632,10 @@
 
     host.innerHTML = `
       <form class="log-form" autocomplete="off">
+        <label class="field">Brewed on<input class="win-input" type="date" name="brewed_on" value="${todayISO()}" required></label>
         <div class="field-row two">
-          <label class="field">Brewed on<input class="win-input" type="date" name="brewed_on" value="${todayISO()}" required></label>
-          <label class="field">Grind used<input class="win-input" name="grinder_setting" value="${esc(g.start_setting)}"></label>
+          <label class="field">Grind used<input class="win-input" name="grinder_setting" value="${esc(myGrind || g.start_setting)}"></label>
+          <label class="field">Brew time<input class="win-input" name="brew_time" inputmode="numeric" placeholder="from the timer"></label>
         </div>
         <div class="stars-row">
           <span class="stars" role="radiogroup" aria-label="Rating">${[1, 2, 3, 4, 5].map((n) => `<button type="button" class="star" data-star="${n}" aria-label="${n} star${n > 1 ? 's' : ''}">★</button>`).join('')}</span>
@@ -590,6 +678,8 @@
     }));
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      const recipeEl = host.closest('.recipe');
+      if (recipeEl && recipeEl._fillTime) recipeEl._fillTime();
       const fd = Object.fromEntries(new FormData(form));
       // the log stores Celsius, like the catalog
       const f = parseFloat(fd.temperature_f);
@@ -606,10 +696,13 @@
       // reset the form for the next brew
       Object.keys(draft).forEach((k) => { draft[k] = 0; });
       form.reset();
+      delete $('input[name="brew_time"]', form).dataset.auto;
       $$('[data-v]', form).forEach((x) => x.classList.remove('pressed'));
       paintStars();
       paint();
       renderBeans();
+      renderCoffeeCard();
+      renderMethods();
       renderStatusCount();
     });
     host.addEventListener('click', (e) => {
@@ -625,7 +718,7 @@
       title: 'Delete Brew', icon: '🗑️',
       html: '<p>Delete this brew from your log?</p>',
       buttons: [
-        { label: 'Delete', primary: true, onClick: () => { log.remove(id); after(); renderBeans(); renderStatusCount(); toast('Deleted.'); } },
+        { label: 'Delete', primary: true, onClick: () => { log.remove(id); after(); renderBeans(); renderCoffeeCard(); renderMethods(); renderStatusCount(); toast('Deleted.'); } },
         { label: 'Cancel' },
       ],
     });
@@ -645,31 +738,65 @@
         </div>`;
       return;
     }
+    // one group per bean, most recently brewed first
+    const groups = new Map();
+    for (const e of entries) {
+      if (!groups.has(e.coffee_id)) groups.set(e.coffee_id, []);
+      groups.get(e.coffee_id).push(e);
+    }
     host.innerHTML = `
       <div class="log-head">
-        <b>${entries.length} brew${entries.length > 1 ? 's' : ''} logged</b><span class="spacer"></span>
+        <b>${brewsWord(entries.length)} of ${groups.size} bean${groups.size > 1 ? 's' : ''}</b><span class="spacer"></span>
         <button class="btn small" data-action="backup">💾 Back up</button>
         <button class="btn small" data-action="restore">📂 Restore</button>
-      </div>` +
-      entries.map((e) => {
-        const c = byId.get(e.coffee_id);
-        const m = methodInfo(e.method) || { icon: 'assets/favicon.png', long: e.method };
-        return `<div class="log-card raised">
-          <img src="${m.icon}" alt="">
-          <div class="entry-body" data-open="${esc(e.coffee_id)}" data-method="${esc(e.method)}">
-            <div class="lc-name">${c ? esc(c.name) : esc(e.coffee_id)}</div>
-            <div class="small">${c ? esc(c.roaster) + ' · ' : ''}${esc(m.long)}</div>
-            ${entryHTML(e, { withDelete: false })}
-          </div>
-          <button class="btn small" data-del="${esc(e.id)}" aria-label="Delete this entry">🗑️</button>
-        </div>`;
-      }).join('');
+      </div>
+      <div class="bean-groups">` +
+      [...groups.entries()].map(([id, list]) => {
+        const c = byId.get(id);
+        const open = openGroups.has(id);
+        const rated = list.filter((e) => e.rating);
+        const avg = rated.length ? rated.reduce((a, e) => a + e.rating, 0) / rated.length : null;
+        const b = I.bestPractice(list);
+        const best = b && b.scored ? methodInfo(b.method) : null;
+        return `<section class="bean-group raised ${open ? 'open' : ''}">
+          <button class="bg-head" data-group="${esc(id)}" aria-expanded="${open}">
+            <span class="bg-flag" aria-hidden="true">${c ? flag(c) : '☕'}</span>
+            <span class="bg-main">
+              <span class="lc-name">${c ? esc(c.name) : esc(id)}</span>
+              <span class="small">${c ? esc(c.roaster) : 'No longer in the catalog'}</span>
+              <span class="bg-stats"><b>${brewsWord(list.length)}</b> · last brewed <b>${esc(fmtDay(list[0].brewed_on))}</b></span>
+              ${avg != null || best ? `<span class="bg-stats">${avg != null ? `<span class="entry-stars">★</span> ${avg.toFixed(1)} average` : ''}${avg != null && best ? ' · ' : ''}${best ? `🏆 ${esc(best.label)}` : ''}</span>` : ''}
+            </span>
+            <span class="bg-arrow" aria-hidden="true">${open ? '▾' : '▸'}</span>
+          </button>
+          ${open ? `<ul class="bg-entries">${list.map((e) => {
+            const m = methodInfo(e.method) || { icon: 'assets/favicon.png', long: e.method };
+            return `<li class="entry">
+              <img class="entry-ico" src="${m.icon}" alt="${esc(m.long)}">
+              <div class="entry-wrap" data-open="${esc(e.coffee_id)}" data-method="${esc(e.method)}">
+                <div class="small">${esc(m.long)}</div>
+                ${entryHTML(e, { withDelete: false })}
+              </div>
+              <button class="btn small" data-del="${esc(e.id)}" aria-label="Delete this entry">🗑️</button>
+            </li>`;
+          }).join('')}</ul>
+          ${c ? `<div class="bg-foot"><button class="btn small" data-open="${esc(id)}">☕ Open in Brew Station</button></div>` : ''}` : ''}
+        </section>`;
+      }).join('') + '</div>';
   }
+  const openGroups = new Set();
   $('#log-list').addEventListener('click', (e) => {
+    const g = e.target.closest('[data-group]');
+    if (g) {
+      const id = g.dataset.group;
+      if (openGroups.has(id)) openGroups.delete(id); else openGroups.add(id);
+      renderLog();
+      return;
+    }
     const d = e.target.closest('[data-del]');
     if (d) { confirmDelete(d.dataset.del, renderLog); return; }
     const o = e.target.closest('[data-open]');
-    if (o && byId.has(o.dataset.open)) goToCoffee(o.dataset.open, o.dataset.method);
+    if (o && byId.has(o.dataset.open)) goToCoffee(o.dataset.open, o.dataset.method || undefined);
   });
 
   function backupLog() {
@@ -741,7 +868,7 @@
     const top = M.rank(coffees, state.picks, { hideUnavailable: state.hideSold }).slice(0, 4);
     const medals = ['🥇', '🥈', '🥉', '🏅'];
     const notes = [];
-    if (state.picks.includes('dark')) notes.push('None of these roasters sells a truly dark filter roast, so “dark” leans toward the most developed roasts available.');
+    if (state.picks.includes('dark') && !top.some((x) => M.roastLevel(x.coffee.roast) >= 0.85)) notes.push('No truly dark roast matches the rest of your picks, so these lean toward the darkest ones that do.');
     if (top.length && top[0].score < 60) notes.push('Nothing ticks every box, so these are the closest neighbours.');
     const picked = M.GROUPS.flatMap((g) => g.items).filter((it) => state.picks.includes(it.id)).map((it) => it.label);
     const body = `

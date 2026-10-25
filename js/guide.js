@@ -65,7 +65,10 @@
     for (const s of steps) {
       const t = timeAt(s);
       if (t == null) return null;
-      const to = /(?:to|bloom(?: with)?)\s+(\d+)\s*g/i.exec(s);
+      // the scale reading after this pour: "to 115 g total", "(120 g total)", "to 50 g";
+      // the first pour may just say how much ("wet grounds with 45 g", "add 60 g water and bloom")
+      const to = /(\d+)\s*g\s+total/i.exec(s) || /\bto\s+(\d+)\s*g/i.exec(s) ||
+        (!pours.length && /(\d+)\s*g\b/i.exec(s));
       if (!to) return null;
       pours.push({ t, to: +to[1], text: s });
     }
@@ -156,7 +159,7 @@
 
   function aeropress(r) {
     const all = r.steps.join(' ');
-    const press = /(\d{1,2}):(\d{2})\s+begin a slow press/i.exec(all);
+    const press = /(\d{1,2}):(\d{2})\s+begin a slow press/i.exec(all) || /begin a slow[^.;]*?press[^.;]*?(\d{1,2}):(\d{2})/i.exec(all);
     const finish = /(?:finish|complete)\s+around\s+(\d{1,2}):(\d{2})/i.exec(all);
     const end = finish ? secs(finish[1], finish[2]) : targetSeconds(r.target_time) || 120;
     const stirAgain = /(\d{1,2}):(\d{2})\s+stir again/i.exec(all);
@@ -178,7 +181,7 @@
       };
     }
     const pressAt = press ? secs(press[1], press[2]) : Math.max(30, end - 30);
-    const stirs = /(\d+–\d+|\d+)\s+gentle stirs/i.exec(all);
+    const stirs = /(\d+–\d+|\d+)\s+gentle stirs/i.exec(all) || /stir gently\s+(\d+–\d+|\d+)\s+times/i.exec(all);
     return {
       prep: ['Rinse the paper filter (standard orientation) and set the AeroPress on a sturdy cup.', `Add ${dose} and tare the scale.`],
       steps: [

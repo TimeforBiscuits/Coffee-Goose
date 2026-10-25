@@ -588,10 +588,55 @@ button { cursor: pointer; }
 .pips { font-size: 12px; display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 2px; color: #333; }
 .pips i { font-style: normal; color: var(--brand-3); letter-spacing: -1px; }
 
-.log-card { margin-bottom: 10px; background: var(--paper); padding: 8px 10px; display: flex; gap: 10px; align-items: flex-start; }
-.log-card img { width: 46px; height: 46px; object-fit: contain; flex-shrink: 0; }
-.log-card .entry-body { cursor: pointer; }
-.log-card .lc-name { font-weight: 700; color: var(--link); text-decoration: underline; text-decoration-color: rgba(0,0,139,.35); text-underline-offset: 3px; }
+/* brew log: one folder per bean, brews inside */
+.bean-groups { display: grid; grid-template-columns: 1fr; gap: 10px; align-items: start; }
+.bean-group { padding: 3px; }
+.bg-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  background: var(--paper);
+  padding: 10px 12px;
+  text-align: left;
+  min-height: 64px;
+}
+.bean-group.open .bg-head { background: var(--select); color: #fff; }
+.bean-group.open .bg-head .small, .bean-group.open .bg-stats { color: #ffd9c4; }
+.bg-flag { font-size: 28px; line-height: 1; }
+.bg-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.lc-name { font-family: var(--pixel); font-weight: 700; font-size: 20px; line-height: 1.1; }
+.bg-stats { font-size: 13px; color: #333; }
+.bg-arrow { font-size: 18px; }
+.bg-entries { list-style: none; margin: 0; padding: 0 10px; background: var(--paper); }
+.bg-entries .entry { border-bottom: 1px dashed var(--brand-3); }
+.bg-entries .entry:last-child { border-bottom: 0; }
+.entry-ico { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+.entry-wrap { flex: 1; min-width: 0; cursor: pointer; }
+.bg-foot { background: var(--paper); padding: 4px 10px 10px; display: flex; justify-content: flex-end; }
+
+/* best practice, on the coffee card */
+.best {
+  margin: 10px 0 2px;
+  padding: 8px 10px 10px;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.3);
+}
+.best-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-family: var(--pixel); font-weight: 700; font-size: 18px; color: var(--brand-4); }
+.conf { font-family: var(--font); font-size: 11px; font-weight: 700; padding: 1px 6px; border: 1px solid #000; color: #000; }
+.conf-high { background: #8cf02c; }
+.conf-medium { background: #ffe600; }
+.conf-low { background: #ddd; }
+.best-main { display: flex; align-items: center; gap: 8px; margin: 6px 0 4px; font-size: 16px; line-height: 1.35; }
+.best-main img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
+.best-why { margin: 4px 0; font-size: 14px; line-height: 1.4; }
+.best .btn { margin-top: 4px; }
+.mine { margin: 6px 0 2px; font-size: 14px; background: #fff; border: 1px solid #000; padding: 3px 6px; }
+.method-tile { position: relative; }
+.trophy { position: absolute; top: 3px; right: 4px; font-size: 20px; filter: drop-shadow(1px 1px 0 rgba(0,0,0,.4)); }
+.tag.espresso { background: #6e2207; color: #fff; }
 .log-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
 .log-head .spacer { flex: 1; }
 .log-empty { text-align: center; padding: 30px 16px; background: var(--cream); }
@@ -885,9 +930,7 @@ button { cursor: pointer; }
   .picker-groups .groupbox { display: inline-block; width: 100%; }
   .check-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .picker-intro, .picker-groups, .picker-options { max-width: 1100px; }
-  #log-list { columns: 2; column-gap: 12px; }
-  #log-list .log-head, #log-list .log-empty { column-span: all; }
-  .log-card { break-inside: avoid; }
+  .bean-groups { grid-template-columns: 1fr 1fr; }
   .modal.results { width: min(820px, 100%); }
   .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .results-grid .match { margin: 0; }
@@ -899,7 +942,7 @@ button { cursor: pointer; }
   .brew { grid-template-columns: 400px minmax(0, 1fr); }
   .recipe-cols { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0 22px; }
   .picker-groups { columns: 3; }
-  #log-list { columns: 3; }
+  .bean-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
