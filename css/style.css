@@ -26,8 +26,9 @@
   --link: #00008b;
 
   --font: Tahoma, Verdana, "Segoe UI", system-ui, -apple-system, sans-serif;
-  --pixel: "Pixelify Sans", Tahoma, Verdana, sans-serif;
-  /* numbers stay in a plain face: Pixelify's 5 reads as an S */
+  /* Jersey 15: chunky 90s pixel type with clearly different C, G and e */
+  --pixel: "Jersey 15", Tahoma, Verdana, sans-serif;
+  /* numbers stay in a plain face, so a 5 never reads as an S */
   --num: Tahoma, Verdana, system-ui, -apple-system, sans-serif;
 
   --taskbar-h: 44px;
@@ -145,13 +146,13 @@ button { cursor: pointer; }
   margin-top: 18px;
   font-family: var(--pixel);
   font-weight: 700;
-  font-size: clamp(30px, 9vw, 54px);
+  font-size: clamp(38px, 11vw, 64px);
   color: #fff;
   letter-spacing: 1px;
   text-shadow: 3px 3px 0 var(--brand-6);
 }
 .boot-title span { color: #ffe600; }
-.boot-tag { font-family: var(--pixel); color: var(--brand-6); font-size: 18px; margin-top: 2px; }
+.boot-tag { font-family: var(--pixel); color: var(--brand-6); font-size: 22px; margin-top: 2px; }
 .boot-progress {
   margin-top: 26px;
   width: min(80vw, 320px);
@@ -301,7 +302,7 @@ button { cursor: pointer; }
 .roasters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .roasters .tile { flex-direction: column; justify-content: center; text-align: center; gap: 2px; min-height: 66px; padding: 6px 4px; }
 .roasters .tile .emoji { font-size: 24px; }
-.roasters .tile .name { font-family: var(--pixel); font-size: 17px; line-height: 1.05; }
+.roasters .tile .name { font-family: var(--pixel); font-size: 20px; line-height: 1.05; }
 .roasters .tile .count { margin: 0; }
 
 .methods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
@@ -313,7 +314,7 @@ button { cursor: pointer; }
   object-fit: contain;
   filter: drop-shadow(2px 2px 0 rgba(0,0,0,.25));
 }
-.method-tile .name { font-family: var(--pixel); font-size: 17px; }
+.method-tile .name { font-family: var(--pixel); font-size: 21px; }
 .method-tile .src { font-size: 10px; font-weight: 400; opacity: .9; white-space: nowrap; }
 .methods-empty { grid-column: 1 / -1; color: #333; font-size: 13px; margin: 0; }
 
@@ -368,7 +369,7 @@ button { cursor: pointer; }
 }
 .cc-head { display: flex; align-items: flex-start; gap: 10px; }
 .cc-flag { font-size: 34px; line-height: 1; }
-.cc-name { margin: 0; font-family: var(--pixel); font-size: 26px; line-height: 1.05; }
+.cc-name { margin: 0; font-family: var(--pixel); font-size: 31px; line-height: 1.05; }
 .cc-sub { font-size: 13px; color: #444; margin-top: 2px; }
 .chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 6px; }
 .chip {
@@ -393,7 +394,7 @@ button { cursor: pointer; }
 .recipe { background: var(--paper); padding: 12px 14px 16px; line-height: 1.45; }
 .recipe-head { display: flex; gap: 10px; align-items: center; }
 .recipe-head img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
-.rh-title { margin: 0; font-family: var(--pixel); font-size: 24px; line-height: 1.05; }
+.rh-title { margin: 0; font-family: var(--pixel); font-size: 29px; line-height: 1.05; }
 .rh-sub { font-size: 13px; color: #555; }
 
 .method-tabs { display: flex; gap: 4px; margin: 10px 0 8px; }
@@ -569,7 +570,7 @@ button { cursor: pointer; }
 }
 .star.on { color: #ffd60a; }
 .star:active { transform: scale(1.2) rotate(-8deg); }
-.rating-label { font-family: var(--pixel); font-weight: 700; font-size: 17px; color: var(--brand-4); }
+.rating-label { font-family: var(--pixel); font-size: 20px; color: var(--brand-4); }
 .scale { display: grid; grid-template-columns: 78px repeat(5, minmax(0, 1fr)); gap: 3px; align-items: center; font-size: 13px; }
 .scale .btn { min-height: 34px; padding: 0; font-size: 13px; }
 .scale .btn.pressed { background: #ffd60a; font-weight: 700; }
@@ -606,7 +607,7 @@ button { cursor: pointer; }
 .bean-group.open .bg-head .small, .bean-group.open .bg-stats { color: #ffd9c4; }
 .bg-flag { font-size: 28px; line-height: 1; }
 .bg-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.lc-name { font-family: var(--pixel); font-weight: 700; font-size: 20px; line-height: 1.1; }
+.lc-name { font-family: var(--pixel); font-size: 24px; line-height: 1.1; }
 .bg-stats { font-size: 13px; color: #333; }
 .bg-arrow { font-size: 18px; }
 .bg-entries { list-style: none; margin: 0; padding: 0 10px; background: var(--paper); }
@@ -624,7 +625,7 @@ button { cursor: pointer; }
   border: 2px solid #000;
   box-shadow: 3px 3px 0 rgba(0,0,0,.3);
 }
-.best-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-family: var(--pixel); font-weight: 700; font-size: 18px; color: var(--brand-4); }
+.best-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-family: var(--pixel); font-size: 22px; color: var(--brand-4); }
 .conf { font-family: var(--font); font-size: 11px; font-weight: 700; padding: 1px 6px; border: 1px solid #000; color: #000; }
 .conf-high { background: #8cf02c; }
 .conf-medium { background: #ffe600; }
@@ -711,7 +712,7 @@ button { cursor: pointer; }
   background: var(--paper);
 }
 .medal { font-size: 30px; line-height: 1; grid-row: span 2; text-align: center; }
-.m-name { font-family: var(--pixel); font-weight: 700; font-size: 21px; line-height: 1.1; }
+.m-name { font-family: var(--pixel); font-size: 25px; line-height: 1.1; }
 .m-sub { font-size: 12px; color: #555; }
 .m-body { grid-column: 1 / -1; }
 .meter { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
@@ -787,7 +788,7 @@ button { cursor: pointer; }
   transform: rotate(180deg);
   color: var(--face-light);
   font-family: var(--pixel);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -845,7 +846,7 @@ button { cursor: pointer; }
 .dialog-row p { margin: 0 0 8px; line-height: 1.4; }
 .tip-art { background: linear-gradient(180deg, var(--brand-4), var(--brand)); padding: 14px 10px; display: grid; place-items: center; align-self: stretch; }
 .tip-art span { font-size: 40px; }
-.tip-head { font-family: var(--pixel); font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.tip-head { font-family: var(--pixel); font-size: 26px; margin: 0 0 6px; }
 .tip-text { background: #fff; padding: 10px 12px; line-height: 1.45; min-height: 96px; }
 .cheat { font-size: 14px; line-height: 1.45; }
 .cheat table { border-collapse: collapse; width: 100%; background: #fff; margin: 8px 0; }
@@ -908,7 +909,7 @@ button { cursor: pointer; }
 
 @media (max-width: 370px) {
   .toolbar .btn .ico { display: none; }
-  .roasters .tile .name { font-size: 15px; }
+  .roasters .tile .name { font-size: 18px; }
 }
 
 /* tablets and up */
@@ -944,6 +945,10 @@ button { cursor: pointer; }
   .picker-groups { columns: 3; }
   .bean-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* Jersey 15 has one weight; never let the browser fake a bold, it smears the pixels */
+.boot-title, .boot-tag, .roasters .tile .name, .method-tile .name, .cc-name, .rh-title, .rating-label,
+.lc-name, .best-head, .m-name, .tip-head, .start-banner span, .start-banner b { font-weight: 400; font-synthesis: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
