@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ff6a2b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Coffee Goose">
+  <title>Coffee Goose</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Boot screen -->
+  <div id="boot" role="status" aria-live="polite">
+    <div class="boot-inner">
+      <div class="boot-art">
+        <span class="steam s1"></span><span class="steam s2"></span><span class="steam s3"></span>
+        <img src="assets/logo.png" alt="Coffee Goose logo" class="boot-logo">
+      </div>
+      <div class="boot-title">Coffee Goose <span>95</span></div>
+      <div class="boot-tag">Grind. Pour. Honk.</div>
+      <div class="boot-progress sunken"><div class="boot-bar" id="boot-bar"></div></div>
+      <div class="boot-msg" id="boot-msg">Starting Coffee Goose…</div>
+    </div>
+    <div class="boot-version" data-version></div>
+  </div>
+
+  <div id="desktop">
+    <section class="window" id="win-main" aria-label="Coffee Goose">
+      <header class="titlebar">
+        <img src="assets/favicon.png" alt="" class="tb-icon">
+        <span class="tb-title" id="main-title">Coffee Goose — Brew Station</span>
+        <span class="tb-buttons" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+      </header>
+      <nav class="toolbar" role="tablist">
+        <button class="btn tab" role="tab" data-action="brew"><span class="ico">☕</span>Brew</button>
+        <button class="btn tab" role="tab" data-action="picker"><span class="ico">🎯</span>Bean Picker</button>
+        <button class="btn tab" role="tab" data-action="log"><span class="ico">📓</span>Brew Log</button>
+      </nav>
+
+      <div class="main-body">
+        <!-- Brew -->
+        <div class="pane" id="pane-brew">
+          <div class="brew">
+            <div class="brew-left" id="brew-left">
+              <fieldset class="groupbox">
+                <legend>1 · Roaster</legend>
+                <div class="roasters" id="roasters"></div>
+              </fieldset>
+              <fieldset class="groupbox bean-box">
+                <legend>2 · Bean</legend>
+                <div class="bean-list sunken" id="bean-list"></div>
+              </fieldset>
+            </div>
+            <div class="brew-right" id="brew-right">
+              <div id="coffee-card"></div>
+              <fieldset class="groupbox" id="method-box">
+                <legend>3 · Brewer</legend>
+                <div class="methods" id="methods"></div>
+              </fieldset>
+              <div id="recipe-inline"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Picker -->
+        <div class="pane" id="pane-picker" hidden>
+          <div class="picker-intro">
+            <img src="assets/logo.png" alt="">
+            <p>Tick what you like and Coffee Goose finds the <b>four</b> closest coffees.</p>
+          </div>
+          <div class="picker-groups" id="picker-groups"></div>
+          <fieldset class="groupbox picker-options">
+            <legend>Options</legend>
+            <label class="check"><input type="checkbox" id="hide-sold"><span>Hide coffees that were sold out</span></label>
+          </fieldset>
+          <div class="picker-bar raised">
+            <button class="btn" id="picker-clear">Clear</button>
+            <button class="btn primary" id="picker-go"><span class="ico">🎯</span><span>Find my coffee</span></button>
+          </div>
+        </div>
+
+        <!-- Log -->
+        <div class="pane" id="pane-log" hidden>
+          <div id="log-list"></div>
+        </div>
+      </div>
+
+      <footer class="statusbar">
+        <span class="sunken status-cell" id="status-msg">Ready</span>
+        <span class="sunken status-cell status-count" id="status-count"></span>
+      </footer>
+    </section>
+  </div>
+
+  <!-- Taskbar -->
+  <div id="taskbar" class="raised-bar">
+    <button class="btn start-btn" id="start-btn" aria-haspopup="menu" aria-expanded="false">
+      <img src="assets/favicon.png" alt="">Start
+    </button>
+    <button class="btn task-btn active" id="task-main">
+      <img src="assets/favicon.png" alt=""><span>Brew Station</span>
+    </button>
+    <span class="tray sunken">
+      <span class="tray-ico" aria-hidden="true">☕</span>
+      <span class="version" data-version></span>
+      <span class="clock" id="clock"></span>
+    </span>
+  </div>
+
+  <div id="start-menu" class="raised" role="menu" hidden>
+    <div class="start-banner"><span>Coffee Goose <b>95</b></span></div>
+    <ul>
+      <li><button role="menuitem" data-action="brew"><span class="ico">☕</span>Brew Station</button></li>
+      <li><button role="menuitem" data-action="picker"><span class="ico">🎯</span>Bean Picker</button></li>
+      <li><button role="menuitem" data-action="log"><span class="ico">📓</span>Brew Log</button></li>
+      <li><button role="menuitem" data-action="grinder"><span class="ico">⚙️</span>X-Ultra Cheat Sheet</button></li>
+      <li><button role="menuitem" data-action="tip"><span class="ico">💡</span>Tip of the Day</button></li>
+      <li class="sep"></li>
+      <li><button role="menuitem" data-action="backup"><span class="ico">💾</span>Back Up Brew Log</button></li>
+      <li><button role="menuitem" data-action="restore"><span class="ico">📂</span>Restore Brew Log…</button></li>
+      <li><button role="menuitem" data-action="about"><span class="ico">🪿</span>About Coffee Goose</button></li>
+    </ul>
+  </div>
+
+  <div id="modal-layer" hidden></div>
+  <input type="file" id="restore-file" accept="application/json,.json" hidden>
+
+  <script src="js/version.js"></script>
+  <script src="js/match.js"></script>
+  <script src="js/log.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
